@@ -63,11 +63,11 @@
       "type": "shell",
       "execute_command": "echo 'minc' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
       "scripts": ["virtualaddons.sh", "provision.sh"],
-      "environment_vars": ["minc-toolkit-v2={{user `minc-toolkit-v2`}}",
-      "minc-toolkit-v1={{user `minc-toolkit-v1`}}", "RMINC={{user `RMINC`}}",
-      "bic-mni-models={{user `bic-mni-models`}}",
-      "beast-library={{user `beast-library`}}", "rstudio={{user `rstudio`}}",
-      "pyminc={{user `pyminc`}}", "minc-stuffs={{user `minc-stuffs`}}",
+      "environment_vars": ["minc_toolkit_v2={{user `minc-toolkit-v2`}}",
+      "minc_toolkit_v1={{user `minc-toolkit-v1`}}", "RMINC={{user `RMINC`}}",
+      "bic_mni_models={{user `bic-mni-models`}}",
+      "beast_library={{user `beast-library`}}", "rstudio={{user `rstudio`}}",
+      "pyminc={{user `pyminc`}}", "minc_stuffs={{user `minc-stuffs`}}",
       "pyezminc={{user `pyezminc`}}"]
     }
   ],
