@@ -134,7 +134,7 @@ d-i mirror/http/mirror select us.archive.ubuntu.com
 
 # To create a normal user account.
 d-i passwd/user-fullname string MINC User
-d-i passwd/username string packer
+d-i passwd/username string minc
 # Normal user's password, either in clear text
 d-i passwd/user-password password minc
 d-i passwd/user-password-again password minc
@@ -258,7 +258,7 @@ d-i partman/confirm_nooverwrite boolean true
 # so this will only work if the disks are the same size.
 #d-i partman-auto/disk string /dev/sda /dev/sdb
 
-# Next you need to specify the physical partitions that will be used. 
+# Next you need to specify the physical partitions that will be used.
 #d-i partman-auto/expert_recipe string \
 #      multiraid ::                                         \
 #              1000 5000 4000 raid                          \
@@ -312,7 +312,7 @@ d-i partman/mount_style select uuid
 # specify a path for the installer to retrieve the filesystem image that will
 # be deployed to disk and used as a base system for the installation.
 #d-i live-installer/net-image string /install/filesystem.squashfs
- 
+
 # Configure APT to not install recommended packages by default. Use of this
 # option can result in an incomplete system and should only be used by very
 # experienced users.
@@ -489,4 +489,3 @@ d-i finish-install/reboot_in_progress note
 # directly, or use the apt-install and in-target commands to easily install
 # packages and run commands in the target system.
 #d-i preseed/late_command string apt-install zsh; in-target chsh -s /bin/zsh
-
