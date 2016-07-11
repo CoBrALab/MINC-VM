@@ -371,11 +371,7 @@ tasksel tasksel/first multiselect lubuntu-core
 #    libapparmor1 apparmor-utils libgstreamer0.10-0 libgstreamer-plugins-base0.10-0 \
 #    automake
 
-d-i pkgsel/include string build-essential gdebi-core r-base r-base-dev \
-    r-recommended git openssh-server htop imagemagick wget libssl-dev \
-    libcurl4-gnutls-dev ed openblas-dev python2.7 python-scikits-learn \
-    libvtk5-dev python-vtk
-
+d-i pkgsel/include string openssh-server
 
 # Whether to upgrade packages after debootstrap.
 # Allowed values: none, safe-upgrade, full-upgrade

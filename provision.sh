@@ -8,6 +8,12 @@ cd /tmp
 
 export DEBIAN_FRONTEND=noninteractive
 
+apt update
+apt install build-essential gdebi-core r-base r-base-dev \
+    r-recommended git openssh-server htop imagemagick wget libssl-dev \
+    libcurl4-gnutls-dev ed openblas-dev python2.7 python-scikits-learn \
+    libvtk5-dev python-vtk python-dev zlib-devel cython
+
 wget --progress=dot:mega http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.9.11-20160202-Ubuntu_15.04-x86_64.deb
 wget --progress=dot:mega http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.0.08-20160205-Ubuntu_15.04-x86_64.deb
 
