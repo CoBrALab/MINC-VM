@@ -36,6 +36,8 @@ git clone --recursive --branch v0.1.14 https://github.com/Mouse-Imaging-Centre/m
 
 wget --progress=dot:mega https://github.com/BIC-MNI/pyezminc/archive/release-1.1.00.tar.gz -O pyezminc.tar.gz
 
+wget https://raw.githubusercontent.com/andrewjanke/volgenmodel/master/volgenmodel -O /usr/local/bin/volgenmodel
+
 #Do this so that we don't need to keep track of version numbers
 mkdir pyminc && tar xzf pyminc.tar.gz -C pyminc --strip-components 1
 #mkdir minc-stuffs && tar xzf minc-stuffs.tar.gz -C minc-stuffs --strip-components 1
