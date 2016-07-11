@@ -2,17 +2,15 @@
 set -e
 set -x
 
-printenv
-
 cd /tmp
 
 export DEBIAN_FRONTEND=noninteractive
 
 apt update
 apt install -y build-essential gdebi-core r-base r-base-dev \
-    r-recommended git openssh-server htop imagemagick wget libssl-dev \
+    r-recommended git htop imagemagick wget libssl-dev \
     libcurl4-gnutls-dev ed libopenblas-dev python2.7 python-scikits-learn \
-    libvtk5-dev python-vtk python-dev zlib1g-dev cython
+    libvtk5-dev python-vtk python-dev zlib1g-dev cython python-setuptools
 
 wget --progress=dot:mega $minc_toolkit_v2
 wget --progress=dot:mega $minc_toolkit_v1
@@ -64,3 +62,6 @@ library(devtools)
 install_github("Mouse-Imaging-Centre/RMINC", dependencies=TRUE, repos='https://cloud.r-project.org/')
 quit()
 EOF
+
+apt-get -y clean
+apt-get -y autoremove
