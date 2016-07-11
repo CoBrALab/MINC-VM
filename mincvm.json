@@ -1,0 +1,86 @@
+{
+  "variables": {
+    "disk_size": "8192",
+    "minc-toolkit-v2": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.9.11-20160202-Ubuntu_15.04-x86_64.deb",
+    "minc-toolkit-v1": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.0.08-20160205-Ubuntu_15.04-x86_64.deb",
+    "RMINC": "https://github.com/Mouse-Imaging-Centre/RMINC/archive/v1.4.2.0.tar.gz",
+    "bic-mni-models": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/bic-mni-models-0.1.1-20120421.deb",
+    "beast-library": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/beast-library-1.1.0-20121212.deb",
+    "rstudio": "https://download1.rstudio.org/rstudio-0.99.902-amd64.deb",
+    "pyminc": "https://github.com/Mouse-Imaging-Centre/pyminc/archive/v0.4.tar.gz",
+    "minc-stuffs": "v0.1.14",
+    "pyezminc": "https://github.com/BIC-MNI/pyezminc/archive/release-1.1.00.tar.gz"
+
+  },
+  "push": {
+    "name": "CoBrALab/minc-toolkit-v2-vm",
+    "vcs": false,
+    "exclude": ["output-amd64-virtualbox", "packer_cache"]
+  },
+  "builders": [
+    {
+      "name": "amd64-virtualbox",
+      "type": "virtualbox-iso",
+      "guest_os_type": "Ubuntu_64",
+      "guest_additions_mode": "attach",
+      "headless": false,
+      "format": "ova",
+      "http_directory": ".",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "2048"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"],
+        ["modifyvm", "{{.Name}}", "--vram", "32"],
+        ["modifyvm", "{{.Name}}", "--accelerate3d", "off"]
+      ],
+      "disk_size": "{{user `disk_size`}}",
+      "hard_drive_interface": "sata",
+      "iso_url": "http://archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/current/images/netboot/mini.iso",
+      "iso_checksum": "902731a64bf54a057ba266a32de5fbcc4c494fcf",
+      "iso_checksum_type": "sha1",
+      "ssh_username": "minc",
+      "ssh_password": "minc",
+      "ssh_wait_timeout": "120m",
+      "boot_wait": "5s",
+      "boot_command": [
+        "<tab><wait>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "linux initrd=initrd.gz",
+        " auto=true",
+        " priority=critical",
+        " url=http://{{.HTTPIP}}:{{.HTTPPort}}/lubuntu-16.04-preseed.txt",
+        " hostname=mincvm",
+        " DEBCONF_DEBUG=5",
+        "<enter>"
+      ],
+      "shutdown_command": "echo 'minc' | sudo -S shutdown -P now"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'minc' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "scripts": ["virtualaddons.sh", "provision.sh"],
+      "environment_vars": ["minc-toolkit-v2={{user `minc-toolkit-v2`}}",
+      "minc-toolkit-v1={{user `minc-toolkit-v1`}}", "RMINC={{user `RMINC`}}",
+      "bic-mni-models={{user `bic-mni-models`}}",
+      "beast-library={{user `beast-library`}}", "rstudio={{user `rstudio`}}",
+      "pyminc={{user `pyminc`}}", "minc-stuffs={{user `minc-stuffs`}}",
+      "pyezminc={{user `pyezminc`}}"]
+    }
+  ],
+
+  "post-processors": [
+    {
+      "type": "atlas",
+      "artifact": "CoBrALab/minc-toolkit-v2-vm",
+      "artifact_type": "virtualbox.image",
+      "metadata": {
+        "created_at": "{{timestamp}}"
+      }
+    }
+  ]
+
+}
