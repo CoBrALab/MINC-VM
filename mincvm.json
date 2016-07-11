@@ -14,7 +14,7 @@
   },
   "push": {
     "name": "CoBrALab/minc-toolkit-v2-vm",
-    "vcs": false,
+    "vcs": true,
     "exclude": ["output-amd64-virtualbox", "packer_cache"]
   },
   "builders": [
