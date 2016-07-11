@@ -14,13 +14,13 @@ apt install -y build-essential gdebi-core r-base r-base-dev \
     libcurl4-gnutls-dev ed libopenblas-dev python2.7 python-scikits-learn \
     libvtk5-dev python-vtk python-dev zlib1g-dev cython
 
-wget --progress=dot:mega http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.9.11-20160202-Ubuntu_15.04-x86_64.deb
-wget --progress=dot:mega http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.0.08-20160205-Ubuntu_15.04-x86_64.deb
+wget --progress=dot:mega $minc_toolkit_v2
+wget --progress=dot:mega $minc_toolkit_v1
 
-wget --progress=dot:mega http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/bic-mni-models-0.1.1-20120421.deb
-wget --progress=dot:mega http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/beast-library-1.1.0-20121212.deb
+wget --progress=dot:mega $bic_mni_models
+wget --progress=dot:mega $beast_library
 
-wget --progress=dot:mega https://download1.rstudio.org/rstudio-0.99.902-amd64.deb
+wget --progress=dot:mega $rstudio
 
 for file in *.deb
 do
@@ -36,13 +36,13 @@ echo '. /opt/minc-itk4/minc-toolkit-config.sh' >> /etc/bash.bashrc
 . /opt/minc-itk4/minc-toolkit-config.sh
 
 #Download other packages
-wget --progress=dot:mega https://github.com/Mouse-Imaging-Centre/pyminc/archive/v0.4.tar.gz -O pyminc.tar.gz
+wget --progress=dot:mega $pyminc -O pyminc.tar.gz
 
 #Can't use wget because submodule isn't installed
 #wget --progress=dot:mega https://github.com/Mouse-Imaging-Centre/minc-stuffs/archive/v0.1.14.tar.gz -O minc-stuffs.tar.gz
-git clone --recursive --branch v0.1.14 https://github.com/Mouse-Imaging-Centre/minc-stuffs.git minc-stuffs
+git clone --recursive --branch $minc_stuffs https://github.com/Mouse-Imaging-Centre/minc-stuffs.git minc-stuffs
 
-wget --progress=dot:mega https://github.com/BIC-MNI/pyezminc/archive/release-1.1.00.tar.gz -O pyezminc.tar.gz
+wget --progress=dot:mega $pyezminc -O pyezminc.tar.gz
 
 wget https://raw.githubusercontent.com/andrewjanke/volgenmodel/master/volgenmodel -O /usr/local/bin/volgenmodel
 
