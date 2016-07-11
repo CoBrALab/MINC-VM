@@ -54,7 +54,7 @@ mkdir pyezminc && tar xzf pyezminc.tar.gz -C pyezminc --strip-components 1
 #Build and install packages
 ( cd pyezminc && python2.7 setup.py install )
 ( cd pyminc && python2.7 setup.py install )
-( cd minc-stuffs && ./autogen.sh && ./configure && make && make install && python2.7 setup.py install )
+( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc-itk4 && make && make install && python2.7 setup.py install )
 
 #Install RMINC (and dependencies)
 cat <<-EOF | R --vanilla --quiet
