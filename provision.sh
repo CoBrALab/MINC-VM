@@ -26,6 +26,8 @@ wget --progress=dot:mega $minc_toolkit_v2
 wget --progress=dot:mega $minc_toolkit_v1
 
 wget --progress=dot:mega $bic_mni_models
+
+#Beast models are disabled for now, they're huge
 #wget --progress=dot:mega $beast_library
 
 for file in *.deb
