@@ -66,18 +66,19 @@ mkdir pyezminc && tar xzf pyezminc.tar.gz -C pyezminc --strip-components 1
 
 rm -rf pyezminc pyminc minc-stuffs
 
-# apt install -y r-base r-base-dev r-recommended
-# wget --progress=dot:mega $rstudio
-# gdebi --n *.deb
-# rm -f *.deb
+apt install -y r-base r-base-dev r-recommended
+wget --progress=dot:mega $rstudio
+gdebi --n *.deb
+rm -f *.deb
 #Install RMINC (and dependencies)
-#cat <<-EOF | R --vanilla --quiet
-#install.packages("devtools", repos='https://cloud.r-project.org/', dependencies=TRUE)
-#library(devtools)
-#install_url("$RMINC", dependencies=TRUE, repos='https://cloud.r-project.org/')
-#install_github("Mouse-Imaging-Centre/RMINC", dependencies=TRUE, repos='https://cloud.r-project.org/')
-#quit()
-#EOF
+cat <<-EOF | R --vanilla --quiet
+source("https://bioconductor.org/biocLite.R")
+library(BiocInstaller)
+install.packages("devtools", repos = 'https://cloud.r-project.org', dependencies=TRUE)
+library(devtools)
+install_url("$RMINC", repos = 'https://cloud.r-project.org', dependencies=TRUE)
+quit()
+EOF
 
 apt-get -y clean
 apt-get -y autoremove
