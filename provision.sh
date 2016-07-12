@@ -59,7 +59,7 @@ rm -rf pyezminc pyminc minc-stuffs
 #Install RMINC (and dependencies)
 cat <<-EOF | R --vanilla --quiet
 install.packages("devtools", repos='https://cloud.r-project.org/', dependencies=TRUE)
-#library(devtools)
+library(devtools)
 install_url("$RMINC", dependencies=TRUE, repos='https://cloud.r-project.org/')
 #install_github("Mouse-Imaging-Centre/RMINC", dependencies=TRUE, repos='https://cloud.r-project.org/')
 quit()
