@@ -14,18 +14,16 @@ autologin-user-timeout=0
 EOF
 
 apt update
-apt install -y build-essential gdebi-core r-base r-base-dev \
-    r-recommended git htop imagemagick wget libssl-dev \
+apt install -y build-essential gdebi-core \
+    git htop imagemagick wget libssl-dev cmake \
     libcurl4-gnutls-dev ed libopenblas-dev python2.7 python-scikits-learn \
-    libvtk5-dev python-vtk python-dev zlib1g-dev cython python-setuptools
+    python-vtk6 libvtk6-dev python-dev zlib1g-dev cython python-setuptools
 
 wget --progress=dot:mega $minc_toolkit_v2
 wget --progress=dot:mega $minc_toolkit_v1
 
 wget --progress=dot:mega $bic_mni_models
 #wget --progress=dot:mega $beast_library
-
-wget --progress=dot:mega $rstudio
 
 for file in *.deb
 do
@@ -63,6 +61,10 @@ mkdir pyezminc && tar xzf pyezminc.tar.gz -C pyezminc --strip-components 1
 
 rm -rf pyezminc pyminc minc-stuffs
 
+# apt install -y r-base r-base-dev r-recommended
+# wget --progress=dot:mega $rstudio
+# gdebi --n *.deb
+# rm -f *.deb
 #Install RMINC (and dependencies)
 #cat <<-EOF | R --vanilla --quiet
 #install.packages("devtools", repos='https://cloud.r-project.org/', dependencies=TRUE)
