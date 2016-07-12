@@ -23,7 +23,7 @@ wget --progress=dot:mega $minc_toolkit_v2
 wget --progress=dot:mega $minc_toolkit_v1
 
 wget --progress=dot:mega $bic_mni_models
-wget --progress=dot:mega $beast_library
+#wget --progress=dot:mega $beast_library
 
 wget --progress=dot:mega $rstudio
 
