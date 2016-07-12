@@ -14,8 +14,11 @@ autologin-user-timeout=0
 EOF
 
 apt update
+#Command line tools
+apt install -y htop nano wget imagemagick
+#Build tools and dependencies
 apt install -y build-essential gdebi-core \
-    git htop imagemagick wget libssl-dev cmake \
+    git imagemagick libssl-dev cmake autotools-dev automake \
     libcurl4-gnutls-dev ed libopenblas-dev python2.7 python-scikits-learn \
     python-vtk6 libvtk6-dev python-dev zlib1g-dev cython python-setuptools
 
