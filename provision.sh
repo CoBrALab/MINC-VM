@@ -54,12 +54,14 @@ mkdir pyezminc && tar xzf pyezminc.tar.gz -C pyezminc --strip-components 1
 ( cd pyminc && python2.7 setup.py install )
 ( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc-itk4 && make && make install && python2.7 setup.py install )
 
+rm -rf pyezminc pyminc minc-stuffs
+
 #Install RMINC (and dependencies)
 cat <<-EOF | R --vanilla --quiet
-install.packages("devtools", repos='https://cloud.r-project.org/')
-library(devtools)
-#install_url("https://github.com/Mouse-Imaging-Centre/RMINC/archive/v1.4.2.0.tar.gz", dependencies=TRUE, repos='https://cloud.r-project.org/')
-install_github("Mouse-Imaging-Centre/RMINC", dependencies=TRUE, repos='https://cloud.r-project.org/')
+install.packages("devtools", repos='https://cloud.r-project.org/', dependencies=TRUE)
+#library(devtools)
+install_url("$RMINC", dependencies=TRUE, repos='https://cloud.r-project.org/')
+#install_github("Mouse-Imaging-Centre/RMINC", dependencies=TRUE, repos='https://cloud.r-project.org/')
 quit()
 EOF
 
