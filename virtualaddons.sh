@@ -2,6 +2,8 @@
 set -eu
 set -x
 
+export DEBIAN_FRONTEND=noninteractive
+
 #Prerequisites
 apt update
 apt install -y dkms
