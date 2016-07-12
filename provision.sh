@@ -6,6 +6,13 @@ cd /tmp
 
 export DEBIAN_FRONTEND=noninteractive
 
+#Enable auto-login
+cat <<-EOF >> /etc/lightdm/lightdm.conf
+[SeatDefaults]
+autologin-user=minc
+autologin-user-timeout=0
+EOF
+
 apt update
 apt install -y build-essential gdebi-core r-base r-base-dev \
     r-recommended git htop imagemagick wget libssl-dev \
