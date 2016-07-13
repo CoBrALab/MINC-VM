@@ -17,6 +17,9 @@ autologin-user-timeout=0
 EOF
 
 apt update
+apt -y full-upgrade
+apt-get --purge -y autoremove
+
 #Command line tools
 apt install -y htop nano wget imagemagick
 #Build tools and dependencies
