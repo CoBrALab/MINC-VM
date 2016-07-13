@@ -104,6 +104,9 @@ wget $itksnap_minc -O itksnap_minc.tar.gz
 tar xzvf itksnap_minc.tar.gz -C /usr/local --strip-components 1
 rm -f itksnap_minc.tar.gz
 
+#Purge unneeded packages
+apt-get purge $(dpkg -l | tr -s ' ' | cut -d" " -f2 | sed 's/:amd64//g' | grep -e -E '(-dev|-doc)$')
+
 #Install R
 apt install -y r-base r-base-dev r-recommended
 
