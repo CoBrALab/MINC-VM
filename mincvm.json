@@ -72,7 +72,7 @@
       "beast_library={{user `beast-library`}}", "rstudio={{user `rstudio`}}",
       "pyminc={{user `pyminc`}}", "minc_stuffs={{user `minc-stuffs`}}",
       "pyezminc={{user `pyezminc`}}", "quarter={{user `quarter`}}",
-      "bicinventor=={{user `bicinventor`}}", "brain_view2=={{user `brain-view2`}}"]
+      "bicinventor={{user `bicinventor`}}", "brain_view2={{user `brain-view2`}}"]
     }
   ],
 
