@@ -91,6 +91,11 @@ mkdir brain-view2 && tar xzvf brain-view2.tar.gz -C brain-view2 --strip-componen
 
 rm -rf quarter* bicinventor* brain-view2*
 
+#Install itksnap-MINC
+wget $itksnap_minc -O itksnap_minc.tar.gz
+tar xzvf itksnap_minc.tar.gz -C /usr/local --strip-components 1
+rm -f itksnap_minc.tar.gz
+
 #Install R
 apt install -y r-base r-base-dev r-recommended
 
