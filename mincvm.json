@@ -9,7 +9,10 @@
     "rstudio": "https://download1.rstudio.org/rstudio-0.99.902-amd64.deb",
     "pyminc": "https://github.com/Mouse-Imaging-Centre/pyminc/archive/v0.4.tar.gz",
     "minc-stuffs": "v0.1.15",
-    "pyezminc": "https://github.com/BIC-MNI/pyezminc/archive/release-1.1.00.tar.gz"
+    "pyezminc": "https://github.com/BIC-MNI/pyezminc/archive/release-1.1.00.tar.gz",
+    "quarter": "https://github.com/Alexpux/Quarter/archive/master.tar.gz",
+    "bicinventor": "https://github.com/BIC-MNI/bicInventor/archive/master.tar.gz",
+    "brain-view2": "https://github.com/Mouse-Imaging-Centre/brain-view2/archive/master.tar.gz"
 
   },
   "push": {
@@ -68,7 +71,8 @@
       "bic_mni_models={{user `bic-mni-models`}}",
       "beast_library={{user `beast-library`}}", "rstudio={{user `rstudio`}}",
       "pyminc={{user `pyminc`}}", "minc_stuffs={{user `minc-stuffs`}}",
-      "pyezminc={{user `pyezminc`}}"]
+      "pyezminc={{user `pyezminc`}}", "quarter={{user `quarter`}}",
+      "bicinventor=={{user `bicinventor`}}", "brain_view2=={{user `brain-view2`}}"]
     }
   ],
 

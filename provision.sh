@@ -72,6 +72,21 @@ mkdir pyezminc && tar xzvf pyezminc.tar.gz -C pyezminc --strip-components 1
 #Cleanup
 rm -rf pyezminc* pyminc* minc-stuffs*
 
+#Installing brain-view2
+apt install -y libcoin80-dev libpcre++-dev
+wget $quarter -O quarter.tar.gz
+wget $bicinventor -O bicinventor.tar.gz
+wget $brain_view2 -O brain-view2.tar.gz
+mkdir quarter && tar xzvf quarter.tar.gz -C quarter --strip-components 1
+mkdir bicinventor && tar xzvf bicinventor.tar.gz -C bicinventor --strip-components 1
+mkdir brain-view2 && tar xzvf brain-view2.tar.gz -C brain-view2 --strip-components 1
+
+( cd quarter && cmake . && make && make install )
+( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc-itk4 --with-minc2 && make && make install )
+( cd brain-view2 && qmake MINCDIR=/opt/minc-itk4 HDF5DIR=/opt/minc-itk4 && make && cp brain-view2 /opt/minc-itk4/bin )
+
+rm -rf quarter* bicinventor* brain-view2*
+
 #Install R
 apt install -y r-base r-base-dev r-recommended
 
@@ -96,3 +111,4 @@ apt-get -y autoremove
 #Cleanup to ensure extra files aren't packed into VM
 cd ~
 rm -rf /tmp/provision
+rm -f /var/cache/apt/archives/*.deb
