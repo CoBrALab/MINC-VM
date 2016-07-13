@@ -10,10 +10,11 @@ cd /tmp/provision
 export DEBIAN_FRONTEND=noninteractive
 
 #Enable auto-login
-cat <<-EOF >> /etc/lightdm/lightdm.conf
+cat <<-EOF > /etc/lightdm/lightdm.conf
 [SeatDefaults]
 autologin-user=minc
 autologin-user-timeout=0
+user-session=Lubuntu
 EOF
 
 apt update
