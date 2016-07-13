@@ -32,7 +32,7 @@
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "2048"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"],
-        ["modifyvm", "{{.Name}}", "--vram", "8"],
+        ["modifyvm", "{{.Name}}", "--vram", "12"],
         ["modifyvm", "{{.Name}}", "--accelerate3d", "off"]
       ],
       "disk_size": "{{user `disk_size`}}",
