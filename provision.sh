@@ -85,7 +85,7 @@ mkdir pyezminc && tar xzvf pyezminc.tar.gz -C pyezminc --strip-components 1
 rm -rf pyezminc* pyminc* minc-stuffs*
 
 #Installing brain-view2
-apt install -y libcoin80-dev libpcre++-dev qt4-default libqt4-opengl-dev
+apt install -y libcoin80-dev libpcre++-dev qt4-default libqt4-opengl-dev libtool
 wget $quarter -O quarter.tar.gz
 wget $bicinventor -O bicinventor.tar.gz
 wget $brain_view2 -O brain-view2.tar.gz
