@@ -35,6 +35,9 @@
         ["modifyvm", "{{.Name}}", "--vram", "12"],
         ["modifyvm", "{{.Name}}", "--accelerate3d", "off"]
       ],
+      "vboxmanage_post":[
+        ["modifyhd", "output-mincvm-virtualbox/{{.Name}}.vdi", "--compact"]
+      ],
       "disk_size": "{{user `disk_size`}}",
       "hard_drive_interface": "sata",
       "iso_url": "http://archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/current/images/netboot/mini.iso",
