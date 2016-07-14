@@ -17,6 +17,10 @@ autologin-user-timeout=0
 user-session=Lubuntu
 EOF
 
+#Enable R mirror
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+apt-add-repository -y "deb https://cran.rstudio.com/bin/linux/ubuntu xenial/"
+
 apt update
 apt -y full-upgrade
 apt-get --purge -y autoremove
