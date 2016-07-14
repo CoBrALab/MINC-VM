@@ -13,11 +13,10 @@ statistical analysis.
 You can find the latest auto-built VMs for download at:
 <https://atlas.hashicorp.com/CoBrALab/artifacts/minc-toolkit-v2-vm>
 
-These downloads are ``.tar.gz`` files containing importable VMs.
+These downloads are ``.zip`` files containing importable VMs.
 
-After download, extract with ``tar -xzf file.tar.gz``
-
-Then, import the VM into your preferred tool:
+After download, extract with your tool of choice, import the VM into your
+preferred virtualizer:
 
 For help with importing VMs see:
 <https://docs.oracle.com/cd/E26217_01/E26796/html/qs-import-vm.html>
