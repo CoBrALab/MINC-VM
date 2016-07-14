@@ -22,7 +22,7 @@
   },
   "builders": [
     {
-      "name": "amd64-virtualbox",
+      "name": "mincvm-virtualbox",
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
       "guest_additions_mode": "attach",
@@ -78,6 +78,10 @@
   ],
 
   "post-processors": [
+    {
+      "type": "compress",
+      "output": "{{.BuildName}}.zip"
+    },
     {
       "type": "atlas",
       "artifact": "CoBrALab/minc-toolkit-v2-vm",
