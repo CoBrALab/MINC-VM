@@ -23,7 +23,7 @@ apt-key adv --recv-keys --keyserver hkp://pgp.mit.edu:80 0xA5D32F012649A5A9
 
 #Enable R mirror
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-echo "deb https://cran.rstudio.com/bin/linux/ubuntu xenial/" > /etc/apt/sources.list.d/R.sources.list
+echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" > /etc/apt/sources.list.d/R.sources.list
 
 apt update
 apt -y full-upgrade
