@@ -61,6 +61,42 @@
         "<enter>"
       ],
       "shutdown_command": "echo 'minc' | sudo -S shutdown -P now"
+    },
+    {
+      "name": "mincvm-vmware",
+      "type": "vmware-iso",
+      "guest_os_type": "Ubuntu_64",
+      "tools_upload_flavor": "linux",
+      "headless": false,
+      "format": "vmx",
+      "http_directory": ".",
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "2048",
+        "numvcpus": "1"
+      },
+      "disk_size": "{{user `disk_size`}}",
+      "iso_url": "http://archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/current/images/netboot/mini.iso",
+      "iso_checksum": "902731a64bf54a057ba266a32de5fbcc4c494fcf",
+      "iso_checksum_type": "sha1",
+      "ssh_username": "minc",
+      "ssh_password": "minc",
+      "ssh_wait_timeout": "120m",
+      "boot_wait": "5s",
+      "boot_command": [
+        "<tab><wait>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "linux initrd=initrd.gz",
+        " auto=true",
+        " priority=critical",
+        " url=http://{{.HTTPIP}}:{{.HTTPPort}}/lubuntu-16.04-preseed.txt",
+        " hostname=mincvm",
+        " DEBCONF_DEBUG=5",
+        "<enter>"
+      ],
+      "shutdown_command": "echo 'minc' | sudo -S shutdown -P now"
     }
   ],
 
