@@ -87,7 +87,7 @@
     },
     {
       "type": "atlas",
-      "artifact": "CoBrALab/minc-toolkit-v2-vm",
+      "artifact": "CoBrALab/MINC-VM",
       "artifact_type": "virtualbox.image",
       "metadata": {
         "created_at": "{{timestamp}}"
