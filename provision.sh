@@ -125,6 +125,11 @@ install_url("$RMINC", repos = 'https://cloud.r-project.org', dependencies=TRUE)
 quit()
 EOF
 
+#Remove a hunk of useless packages which seem to be safe to remove
+apt-get -y purge printer-driver.* xserver-xorg-video.* xscreensaver.* wpasupplicant wireless-tools .*vdpau.* \
+bluez-cups cups-browsed cups-bsd cups-client cups-common cups-core-drivers cups-daemon cups-filters \
+cups-filters-core-drivers cups-ppdc cups-server-common linux-headers.* snapd bluez linux-firmware .*sane.* .*ppds.*
+
 apt-get -y clean
 apt-get -y autoremove
 
