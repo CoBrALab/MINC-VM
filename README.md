@@ -8,15 +8,24 @@ the Ubuntu ``mini.iso`` file, installs a minimal Lubuntu-core desktop, followed
 by installing all of the MINC family of tools as well as R/RStudio for
 statistical analysis.
 
+## Usage Instructions
+
 You can find the latest auto-built VMs for download at:
 <https://atlas.hashicorp.com/CoBrALab/artifacts/minc-toolkit-v2-vm>
 
-These downloads are ``.tar.gz`` files containing importable VMs
+These downloads are ``.tar.gz`` files containing importable VMs.
+
+After download, extract with ``tar -xzf file.tar.gz``
+
+Then, import the VM into your preferred tool:
 
 For help with importing VMs see:
 <https://docs.oracle.com/cd/E26217_01/E26796/html/qs-import-vm.html>
 <http://download.parallels.com/desktop/v5/docs/en/Getting_Started_With_Parallels_Desktop/29714.htm>
 <https://pubs.vmware.com/workstation-9/index.jsp?topic=%2Fcom.vmware.ws.using.doc%2FGUID-DDCBE9C0-0EC9-4D09-8042-18436DA62F7A.html>
+
+Getting files into and out of the VM is accomplished via the the shared folder feature.
+Shared folders are automatically mounted inside ``/media/minc``
 
 All software is globally installed and available via the LXTerminal in
 the Lubuntu menu.
