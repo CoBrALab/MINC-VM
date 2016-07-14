@@ -1,12 +1,12 @@
 #### Contents of the preconfiguration file (for xenial)
 ### Localization
 # Preseeding only locale sets language, country and locale.
-d-i debian-installer/locale string en_US
+d-i debian-installer/locale string C
 
 # The values can also be preseeded individually for greater flexibility.
-#d-i debian-installer/language string en
-#d-i debian-installer/country string NL
-#d-i debian-installer/locale string en_GB.UTF-8
+d-i debian-installer/language string C
+d-i debian-installer/country string NL
+d-i debian-installer/locale string C
 # Optionally specify additional locales to be generated.
 #d-i localechooser/supported-locales multiselect en_US.UTF-8, nl_NL.UTF-8
 
@@ -316,7 +316,7 @@ d-i partman/mount_style select uuid
 # Configure APT to not install recommended packages by default. Use of this
 # option can result in an incomplete system and should only be used by very
 # experienced users.
-#d-i base-installer/install-recommends boolean false
+d-i base-installer/install-recommends boolean false
 
 # The kernel image (meta) package to be installed; "none" can be used if no
 # kernel is to be installed.
@@ -355,19 +355,12 @@ d-i apt-setup/backports boolean true
 # Uncomment this to add multiarch configuration for i386
 #d-i apt-setup/multiarch string i386
 
-
 ### Package selection
 tasksel tasksel/first multiselect lubuntu-core
 #tasksel tasksel/first multiselect lamp-server, print-server
 #tasksel tasksel/first multiselect kubuntu-desktop
 
 # Individual additional packages to install
-#d-i pkgsel/include string build-essential gdebi-core r-base r-base-dev \
-#    r-recommended git libcoin80-dev qt4-qmake libqt4-dev libqt4-core \
-#    libboost-dev autogen pkg-config libtool libpcre++-dev gdb libxslt1-dev \
-#    libapparmor1 apparmor-utils libgstreamer0.10-0 libgstreamer-plugins-base0.10-0 \
-#    automake
-
 d-i pkgsel/include string openssh-server
 
 # Whether to upgrade packages after debootstrap.
@@ -375,7 +368,8 @@ d-i pkgsel/include string openssh-server
 d-i pkgsel/upgrade select full-upgrade
 
 # Language pack selection
-d-i pkgsel/language-packs multiselect en
+#d-i pkgsel/language-packs multiselect en
+d-i pkgsel/install-language-support boolean false
 
 # Policy for applying updates. May be "none" (no automatic updates),
 # "unattended-upgrades" (install security updates automatically), or

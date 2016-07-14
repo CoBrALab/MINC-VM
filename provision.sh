@@ -30,9 +30,9 @@ apt -y full-upgrade
 apt-get --purge -y autoremove
 
 #Command line tools
-apt install -y htop nano wget imagemagick
+apt install -y --no-install-recommends htop nano wget imagemagick
 #Build tools and dependencies
-apt install -y build-essential gdebi-core \
+apt install -y --no-install-recommends build-essential gdebi-core \
     git imagemagick libssl-dev cmake autotools-dev automake \
     libcurl4-gnutls-dev ed libopenblas-dev python2.7 python-scikits-learn \
     python-vtk6 libvtk6-dev python-dev zlib1g-dev cython python-setuptools
@@ -85,7 +85,7 @@ mkdir pyezminc && tar xzvf pyezminc.tar.gz -C pyezminc --strip-components 1
 rm -rf pyezminc* pyminc* minc-stuffs*
 
 #Installing brain-view2
-apt install -y libcoin80-dev libpcre++-dev qt4-default
+apt install -y --no-install-recommends libcoin80-dev libpcre++-dev qt4-default libqt4-opengl-dev libtool
 wget $quarter -O quarter.tar.gz
 wget $bicinventor -O bicinventor.tar.gz
 wget $brain_view2 -O brain-view2.tar.gz
@@ -104,8 +104,11 @@ wget $itksnap_minc -O itksnap_minc.tar.gz
 tar xzvf itksnap_minc.tar.gz -C /usr/local --strip-components 1
 rm -f itksnap_minc.tar.gz
 
+#Purge unneeded packages
+apt-get purge $(dpkg -l | tr -s ' ' | cut -d" " -f2 | sed 's/:amd64//g' | grep -e -E '(-dev|-doc)$')
+
 #Install R
-apt install -y r-base r-base-dev r-recommended
+apt install -y --no-install-recommends r-base r-base-dev r-recommended
 
 #Install rstudio
 wget --progress=dot:mega $rstudio
@@ -122,6 +125,11 @@ install_url("$RMINC", repos = 'https://cloud.r-project.org', dependencies=TRUE)
 quit()
 EOF
 
+#Remove a hunk of useless packages which seem to be safe to remove
+apt-get -y purge printer-driver.* xserver-xorg-video.* xscreensaver.* wpasupplicant wireless-tools .*vdpau.* \
+bluez-cups cups-browsed cups-bsd cups-client cups-common cups-core-drivers cups-daemon cups-filters \
+cups-filters-core-drivers cups-ppdc cups-server-common linux-headers.* snapd bluez linux-firmware .*sane.* .*ppds.*
+
 apt-get -y clean
 apt-get -y autoremove
 
@@ -129,3 +137,6 @@ apt-get -y autoremove
 cd ~
 rm -rf /tmp/provision
 rm -f /var/cache/apt/archives/*.deb
+
+dd if=/dev/zero of=/zerofillfile bs=1M || true
+rm -f /zerofillfile
