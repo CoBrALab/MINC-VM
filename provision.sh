@@ -30,9 +30,9 @@ apt -y full-upgrade
 apt-get --purge -y autoremove
 
 #Command line tools
-apt install -y htop nano wget imagemagick
+apt install -y --no-install-recommends htop nano wget imagemagick
 #Build tools and dependencies
-apt install -y build-essential gdebi-core \
+apt install -y --no-install-recommends build-essential gdebi-core \
     git imagemagick libssl-dev cmake autotools-dev automake \
     libcurl4-gnutls-dev ed libopenblas-dev python2.7 python-scikits-learn \
     python-vtk6 libvtk6-dev python-dev zlib1g-dev cython python-setuptools
@@ -85,7 +85,7 @@ mkdir pyezminc && tar xzvf pyezminc.tar.gz -C pyezminc --strip-components 1
 rm -rf pyezminc* pyminc* minc-stuffs*
 
 #Installing brain-view2
-apt install -y libcoin80-dev libpcre++-dev qt4-default libqt4-opengl-dev libtool
+apt install -y --no-install-recommends libcoin80-dev libpcre++-dev qt4-default libqt4-opengl-dev libtool
 wget $quarter -O quarter.tar.gz
 wget $bicinventor -O bicinventor.tar.gz
 wget $brain_view2 -O brain-view2.tar.gz
@@ -108,7 +108,7 @@ rm -f itksnap_minc.tar.gz
 apt-get purge $(dpkg -l | tr -s ' ' | cut -d" " -f2 | sed 's/:amd64//g' | grep -e -E '(-dev|-doc)$')
 
 #Install R
-apt install -y r-base r-base-dev r-recommended
+apt install -y --no-install-recommends r-base r-base-dev r-recommended
 
 #Install rstudio
 wget --progress=dot:mega $rstudio
