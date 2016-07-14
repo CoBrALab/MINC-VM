@@ -137,3 +137,6 @@ apt-get -y autoremove
 cd ~
 rm -rf /tmp/provision
 rm -f /var/cache/apt/archives/*.deb
+
+dd if=/dev/zero of=/zerofillfile bs=1M || true
+rm -f /zerofillfile
