@@ -108,7 +108,7 @@ rm -f itksnap_minc.tar.gz
 apt-get purge $(dpkg -l | tr -s ' ' | cut -d" " -f2 | sed 's/:amd64//g' | grep -e -E '(-dev|-doc)$')
 
 #Install R
-apt install -y --no-install-recommends r-base r-base-dev r-recommended
+apt install -y --no-install-recommends r-base r-base-dev r-recommended lsof
 
 #Install rstudio
 wget --progress=dot:mega $rstudio
