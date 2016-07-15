@@ -43,3 +43,4 @@ the Lubuntu menu.
 -   [brain-view2](https://github.com/Mouse-Imaging-Centre/brain-view2)
 -   [pyezminc](https://github.com/BIC-MNI/pyezminc)
 -   [itksnap 3.4.0 with MINC support](https://github.com/vfonov/itksnap3)
+-   [mni.cortical.statistics](https://github.com/BIC-MNI/mni.cortical.statistics)

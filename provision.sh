@@ -122,6 +122,7 @@ library(BiocInstaller)
 install.packages("devtools", repos = 'https://cloud.r-project.org', dependencies=TRUE)
 library(devtools)
 install_url("$RMINC", repos = 'https://cloud.r-project.org', dependencies=TRUE)
+install_url("$mni_cortical_statistics")
 quit()
 EOF
 
