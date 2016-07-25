@@ -70,16 +70,21 @@ git clone --recursive --branch $minc_stuffs https://github.com/Mouse-Imaging-Cen
 
 wget --progress=dot:mega $pyezminc -O pyezminc.tar.gz
 
+wget --progress=dot:mega $generate_deformation_fields -O generate_deformation_fields.tar.gz
+
 wget https://raw.githubusercontent.com/andrewjanke/volgenmodel/master/volgenmodel -O /usr/local/bin/volgenmodel
 
 #Do this so that we don't need to keep track of version numbers for build
 mkdir pyminc && tar xzvf pyminc.tar.gz -C pyminc --strip-components 1
 mkdir pyezminc && tar xzvf pyezminc.tar.gz -C pyezminc --strip-components 1
+mkdir generate_deformation_fields && tar xzvf generate_deformation_fields.tar.gz -C generate_deformation_fields  --strip-components 1
 
 #Build and install packages
 ( cd pyezminc && python2.7 setup.py install )
 ( cd pyminc && python2.7 setup.py install )
 ( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc-itk4 && make && make install && python2.7 setup.py install )
+( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc-itk4 && make && make install)
+( cd generate_deformation_fields/scripts && python setup.py build_ext --inplace && python setup.py install)
 
 #Cleanup
 rm -rf pyezminc* pyminc* minc-stuffs*
