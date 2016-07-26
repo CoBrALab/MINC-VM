@@ -35,7 +35,8 @@ apt install -y --no-install-recommends htop nano wget imagemagick
 apt install -y --no-install-recommends build-essential gdebi-core \
     git imagemagick libssl-dev cmake autotools-dev automake \
     libcurl4-gnutls-dev ed libopenblas-dev python2.7 python-scikits-learn \
-    python-vtk6 libvtk6-dev python-dev zlib1g-dev cython python-setuptools
+    python-vtk6 libvtk6-dev python-dev zlib1g-dev cython python-setuptools \
+    libxml2-dev libxslt-dev python-pip
 
 #Download external debs
 wget --progress=dot:mega $minc_toolkit_v2
@@ -85,6 +86,7 @@ mkdir generate_deformation_fields && tar xzvf generate_deformation_fields.tar.gz
 ( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc-itk4 && make && make install && python2.7 setup.py install )
 ( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc-itk4 && make && make install)
 ( cd generate_deformation_fields/scripts && python setup.py build_ext --inplace && python setup.py install)
+pip install nipype==${nipype}
 
 #Cleanup
 rm -rf pyezminc* pyminc* minc-stuffs*

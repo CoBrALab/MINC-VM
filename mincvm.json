@@ -15,7 +15,8 @@
     "brain-view2": "https://github.com/Mouse-Imaging-Centre/brain-view2/archive/master.tar.gz",
     "itksnap-MINC": "http://www.bic.mni.mcgill.ca/~vfonov/temp/itksnap-3.4.0-20151130-Linux-x86_64-qt4.tar.gz",
     "mni-cortical-statistics": "https://github.com/gdevenyi/mni.cortical.statistics/archive/master.tar.gz",
-    "generate_deformation_fields": "https://github.com/Mouse-Imaging-Centre/generate_deformation_fields/archive/1.0.tar.gz"
+    "generate_deformation_fields": "https://github.com/Mouse-Imaging-Centre/generate_deformation_fields/archive/1.0.tar.gz",
+    "nipype": "0.12.0"
   },
   "push": {
     "name": "CoBrALab/minc-toolkit-v2-vm",
@@ -79,7 +80,7 @@
       "pyezminc={{user `pyezminc`}}", "quarter={{user `quarter`}}",
       "bicinventor={{user `bicinventor`}}", "brain_view2={{user `brain-view2`}}",
       "itksnap_minc={{user `itksnap-MINC`}}", "mni_cortical_statistics={{user `mni-cortical-statistics`}}",
-      "generate_deformation_fields={{user `generate_deformation_fields`}}"]
+      "generate_deformation_fields={{user `generate_deformation_fields`}}","nipype={{user `nipype`}}"]
     }
   ],
 
