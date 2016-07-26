@@ -42,6 +42,7 @@ apt install -y --no-install-recommends build-essential gdebi-core \
 wget --progress=dot:mega $minc_toolkit_v2
 wget --progress=dot:mega $minc_toolkit_v1
 wget --progress=dot:mega $bic_mni_models
+wget --progress=dot:mega $mni_display
 
 #Beast models are disabled for now, they're huge
 #wget --progress=dot:mega $beast_library
@@ -54,6 +55,8 @@ done
 
 #Cleanup debs
 rm -f *.deb
+
+cp -f /opt/mni-display/bin/Display /opt/minc-itk4/bin/Display
 
 #Enable minc-toolkit for all users
 echo '. /opt/minc-itk4/minc-toolkit-config.sh' >> /etc/profile
