@@ -51,3 +51,4 @@ password is ``minc``
 -   [generate_deformation_fields](https://github.com/Mouse-Imaging-Centre/generate_deformation_fields)
 -   [mni-Display](https://github.com/BIC-MNI/Display)
 -   [nipype with MINC support](http://nipy.org/nipype/)
+-   [pydpiper](https://github.com/Mouse-Imaging-Centre/pydpiper)
