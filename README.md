@@ -49,3 +49,5 @@ password is ``minc``
 -   [itksnap 3.4.0 with MINC support](https://github.com/vfonov/itksnap3)
 -   [mni.cortical.statistics](https://github.com/BIC-MNI/mni.cortical.statistics)
 -   [generate_deformation_fields](https://github.com/Mouse-Imaging-Centre/generate_deformation_fields)
+-   [mni-Display](https://github.com/BIC-MNI/Display)
+-   [nipype with MINC support](http://nipy.org/nipype/)
