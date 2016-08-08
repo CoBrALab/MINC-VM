@@ -14,7 +14,7 @@
     "bicinventor": "https://github.com/BIC-MNI/bicInventor/archive/master.tar.gz",
     "brain-view2": "https://github.com/Mouse-Imaging-Centre/brain-view2/archive/master.tar.gz",
     "itksnap-MINC": "http://www.bic.mni.mcgill.ca/~vfonov/temp/itksnap-3.4.0-20151130-Linux-x86_64-qt4.tar.gz",
-    "mni-cortical-statistics": "https://github.com/gdevenyi/mni.cortical.statistics/archive/master.tar.gz",
+    "mni-cortical-statistics": "https://github.com/BIC-MNI/mni.cortical.statistics/archive/ver-0_9_5.tar.gz",
     "generate_deformation_fields": "https://github.com/Mouse-Imaging-Centre/generate_deformation_fields/archive/1.0.tar.gz",
     "nipype": "0.12.0",
     "Display": "https://github.com/BIC-MNI/Display/releases/download/display_2.0.5/mni-display_2.0-5.deb",
