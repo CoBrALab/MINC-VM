@@ -52,3 +52,4 @@ password is ``minc``
 -   [mni-Display](https://github.com/BIC-MNI/Display)
 -   [nipype with MINC support](http://nipy.org/nipype/)
 -   [pydpiper](https://github.com/Mouse-Imaging-Centre/pydpiper)
+-   [bpipe](http://bpipe.org)

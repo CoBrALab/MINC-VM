@@ -36,7 +36,7 @@ apt install -y --no-install-recommends build-essential gdebi-core \
     git imagemagick libssl-dev cmake autotools-dev automake \
     libcurl4-gnutls-dev ed libopenblas-dev python2.7 python-scikits-learn \
     python-vtk6 libvtk6-dev python-dev zlib1g-dev cython python-setuptools \
-    libxml2-dev libxslt-dev python-pip graphviz-dev
+    libxml2-dev libxslt-dev python-pip graphviz-dev default-jre
 
 #Download external debs
 wget --progress=dot:mega $minc_toolkit_v2
@@ -78,6 +78,8 @@ wget --progress=dot:mega $generate_deformation_fields -O generate_deformation_fi
 
 wget --progress=dot:mega $pydpiper -O pydpiper.tar.gz
 
+wget --progress=dot:mega $bpipe -O bpipe.tar.gz
+
 wget https://raw.githubusercontent.com/andrewjanke/volgenmodel/master/volgenmodel -O /usr/local/bin/volgenmodel
 
 #Do this so that we don't need to keep track of version numbers for build
@@ -85,6 +87,7 @@ mkdir pyminc && tar xzvf pyminc.tar.gz -C pyminc --strip-components 1
 mkdir pyezminc && tar xzvf pyezminc.tar.gz -C pyezminc --strip-components 1
 mkdir generate_deformation_fields && tar xzvf generate_deformation_fields.tar.gz -C generate_deformation_fields  --strip-components 1
 mkdir pydpiper && tar xzvf pydpiper.tar.gz -C pydpiper --strip-components 1
+mkdir -p /opt/bpipe && tar xzvf bpipe.tar.gz -C /opt/bpipe --strip-components 1 && ln -s /opt/bpipe/bin/bpipe /usr/local/bin/bpipe
 
 #Build and install packages
 ( cd pyezminc && python2.7 setup.py install )
@@ -96,7 +99,7 @@ mkdir pydpiper && tar xzvf pydpiper.tar.gz -C pydpiper --strip-components 1
 pip install nipype==${nipype}
 
 #Cleanup
-rm -rf pyezminc* pyminc* minc-stuffs* generate_deformation_fields* pydpiper*
+rm -rf pyezminc* pyminc* minc-stuffs* generate_deformation_fields* pydpiper* bpipe*
 
 #Installing brain-view2
 apt install -y --no-install-recommends libcoin80-dev libpcre++-dev qt4-default libqt4-opengl-dev libtool
