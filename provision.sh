@@ -135,10 +135,11 @@ rm -f *.deb
 #Install RMINC (and dependencies)
 cat <<-EOF | R --vanilla --quiet
 source("https://bioconductor.org/biocLite.R")
+biocLite()
 library(BiocInstaller)
-install.packages("devtools", repos = 'https://cloud.r-project.org', dependencies=TRUE)
+install.packages("devtools", repos = 'https://cran.wu.ac.at/', dependencies=TRUE)
 library(devtools)
-install_url("$RMINC", repos = 'https://cloud.r-project.org', dependencies=TRUE)
+install_url("$RMINC", repos = 'https://cran.wu.ac.at/', dependencies=TRUE)
 install_url("$mni_cortical_statistics")
 quit()
 EOF

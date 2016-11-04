@@ -3,7 +3,7 @@
     "disk_size": "16384",
     "minc-toolkit-v2": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.9.11-20160202-Ubuntu_15.04-x86_64.deb",
     "minc-toolkit-v1": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.0.07-20150714-Ubuntu_15.04-x86_64.deb",
-    "RMINC": "https://github.com/Mouse-Imaging-Centre/RMINC/releases/download/1.4.3.1/RMINC_1.4.3.1.tar.gz",
+    "RMINC": "https://github.com/Mouse-Imaging-Centre/RMINC/releases/download/1.4.3.2/RMINC_1.4.3.2.tar.gz",
     "bic-mni-models": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/bic-mni-models-0.1.1-20120421.deb",
     "beast-library": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/beast-library-1.1.0-20121212.deb",
     "rstudio": "https://download1.rstudio.org/rstudio-0.99.903-amd64.deb",
