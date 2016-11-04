@@ -36,7 +36,8 @@ apt install -y --no-install-recommends build-essential gdebi-core \
     git imagemagick libssl-dev cmake autotools-dev automake \
     libcurl4-gnutls-dev ed libopenblas-dev python2.7 python-scikits-learn \
     python-vtk6 libvtk6-dev python-dev zlib1g-dev cython python-setuptools \
-    libxml2-dev libxslt-dev python-pip graphviz-dev default-jre
+    libxml2-dev libxslt-dev python-pip graphviz-dev default-jre python3 \
+    python3-setuptools python3-dev
 
 #Download external debs
 wget --progress=dot:mega $minc_toolkit_v2
@@ -95,7 +96,7 @@ mkdir -p /opt/bpipe && tar xzvf bpipe.tar.gz -C /opt/bpipe --strip-components 1 
 ( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc-itk4 && make && make install && python2.7 setup.py install )
 ( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc-itk4 && make && make install)
 ( cd generate_deformation_fields/scripts && python setup.py build_ext --inplace && python setup.py install)
-( cd pydpiper && python setup.py install)
+( cd pydpiper && python3 setup.py install)
 pip install nipype==${nipype}
 
 #Cleanup
