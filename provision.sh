@@ -134,6 +134,7 @@ rm -f *.deb
 
 #Install RMINC (and dependencies)
 cat <<-EOF | R --vanilla --quiet
+update.packages(repos = 'https://cran.wu.ac.at/', dependencies=TRUE, checkBuilt=TRUE, ask=FALSE)
 source("https://bioconductor.org/biocLite.R")
 biocLite()
 library(BiocInstaller)
@@ -150,12 +151,13 @@ bluez-cups cups-browsed cups-bsd cups-client cups-common cups-core-drivers cups-
 cups-filters-core-drivers cups-ppdc cups-server-common linux-headers.* snapd bluez linux-firmware .*sane.* .*ppds.*
 
 apt-get -y clean
-apt-get -y autoremove
+apt-get -y --purge autoremove
 
 #Cleanup to ensure extra files aren't packed into VM
 cd ~
 rm -rf /tmp/provision
 rm -f /var/cache/apt/archives/*.deb
+rm -rf /var/lib/apt/lists/*
 
 dd if=/dev/zero of=/zerofillfile bs=1M || true
 rm -f /zerofillfile
