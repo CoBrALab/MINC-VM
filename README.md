@@ -35,6 +35,8 @@ the Lubuntu menu.
 To install additional software, the use the ``sudo apt`` tools, the user
 password is ``minc``
 
+**There is no need to install virutalbox guest additions, they are already installed in the VM**
+
 ## Tools included
 
 -   [minc-toolkit-v1](https://github.com/BIC-MNI/minc-toolkit)
