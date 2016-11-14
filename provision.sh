@@ -37,7 +37,7 @@ apt install -y --no-install-recommends build-essential gdebi-core \
     libcurl4-gnutls-dev ed libopenblas-dev python2.7 python-scikits-learn \
     python-vtk6 libvtk6-dev python-dev zlib1g-dev cython python-setuptools \
     libxml2-dev libxslt-dev python-pip graphviz-dev default-jre python3 \
-    python3-setuptools python3-dev
+    python3-setuptools python3-dev zenity
 
 #Download external debs
 wget --progress=dot:mega $minc_toolkit_v2
