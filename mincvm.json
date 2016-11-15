@@ -32,17 +32,20 @@
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
       "guest_additions_mode": "attach",
+      "guest_additions_url": "http://download.virtualbox.org/virtualbox/5.1.8/VBoxGuestAdditions_5.1.8.iso",
+      "guest_additions_sha256": "347fd39df6ddee8079ad41fbc038e2fb64952a40255d75292e8e49a0a0cbf657",
       "headless": false,
       "format": "ova",
       "http_directory": ".",
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "2048"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"],
-        ["modifyvm", "{{.Name}}", "--vram", "12"],
+        ["modifyvm", "{{.Name}}", "--vram", "16"],
         ["modifyvm", "{{.Name}}", "--accelerate3d", "off"]
       ],
       "vboxmanage_post":[
-        ["modifyhd", "output-mincvm-virtualbox/{{.Name}}.vdi", "--compact"]
+        ["modifyhd", "output-mincvm-virtualbox/{{.Name}}.vdi", "--compact"],
+        ["modifyvm", "{{.Name}}", "--accelerate3d", "on"]
       ],
       "disk_size": "{{user `disk_size`}}",
       "hard_drive_interface": "sata",
