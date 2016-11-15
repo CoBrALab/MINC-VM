@@ -16,13 +16,15 @@ You can find the latest auto-built VMs for download at:
 These downloads are ``.tar.gz`` files containing importable VMs.
 
 After download, extract with your tool of choice (``tar -xzvf *.tar.gz``),
-import the VM into your preferred virtualizer:
+import into Virtualbox.
 
 For help with importing VMs see:
 
--   <https://docs.oracle.com/cd/E26217_01/E26796/html/qs-import-vm.html>
--   <http://download.parallels.com/desktop/v5/docs/en/Getting_Started_With_Parallels_Desktop/29714.htm>
--   <https://pubs.vmware.com/workstation-9/index.jsp?topic=%2Fcom.vmware.ws.using.doc%2FGUID-DDCBE9C0-0EC9-4D09-8042-18436DA62F7A.html>
+<https://docs.oracle.com/cd/E26217_01/E26796/html/qs-import-vm.html>
+
+**This VM is built against Virtualbox 5.1.8 (or newer), if you have problems with Display/brain-view2,
+you may need to upgrade your Virtualbox or disable 3D acceleration in your configuration.***
+
 
 Getting files into and out of the VM is accomplished via the the shared folder
 feature. Shared folders are automatically mounted inside ``/media/minc``
