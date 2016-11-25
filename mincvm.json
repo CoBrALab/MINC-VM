@@ -18,7 +18,7 @@
     "generate_deformation_fields": "https://github.com/Mouse-Imaging-Centre/generate_deformation_fields/archive/1.0.tar.gz",
     "nipype": "0.12.1",
     "Display": "https://github.com/BIC-MNI/Display/releases/download/display_2.0.5/mni-display_2.0-5.deb",
-    "pydpiper": "https://github.com/Mouse-Imaging-Centre/pydpiper/archive/v2.0.4.tar.gz",
+    "pydpiper": "https://github.com/Mouse-Imaging-Centre/pydpiper/archive/v2.0.5.tar.gz",
     "bpipe": "https://github.com/ssadedin/bpipe/releases/download/0.9.9.2/bpipe-0.9.9.2.tar.gz"
   },
   "push": {
