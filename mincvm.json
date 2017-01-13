@@ -7,7 +7,7 @@
     "bic-mni-models": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/bic-mni-models-0.1.1-20120421.deb",
     "beast-library": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/beast-library-1.1.0-20121212.deb",
     "rstudio": "https://download1.rstudio.org/rstudio-1.0.136-amd64.deb",
-    "pyminc": "https://github.com/Mouse-Imaging-Centre/pyminc/archive/v0.48.tar.gz",
+    "pyminc": "https://github.com/Mouse-Imaging-Centre/pyminc/archive/v0.49.tar.gz",
     "minc-stuffs": "v0.1.19a",
     "pyezminc": "https://github.com/BIC-MNI/pyezminc/archive/release-1.1.00.tar.gz",
     "quarter": "https://github.com/Alexpux/Quarter/archive/master.tar.gz",
