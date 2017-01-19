@@ -19,7 +19,7 @@ EOF
 
 #Enable neurodebian
 wget -O- http://neuro.debian.net/lists/xenial.us-nh.full > /etc/apt/sources.list.d/neurodebian.sources.list
-apt-key adv --recv-keys --keyserver hkp://keys.gnupg.net:80 0xA5D32F012649A5A9
+apt-key adv --recv-keys --keyserver hkp://pgp.mit.edu:80 0xA5D32F012649A5A9
 
 #Enable R mirror
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
