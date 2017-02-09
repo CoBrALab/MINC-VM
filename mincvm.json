@@ -76,7 +76,7 @@
   "provisioners": [
     {
       "type": "shell",
-      "execute_command": "echo 'minc' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "execute_command": "echo 'minc' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
       "scripts": ["virtualaddons.sh", "provision.sh"],
       "environment_vars": ["minc_toolkit_v2={{user `minc-toolkit-v2`}}",
       "minc_toolkit_v1={{user `minc-toolkit-v1`}}", "RMINC={{user `RMINC`}}",
