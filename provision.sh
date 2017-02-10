@@ -76,7 +76,9 @@ echo '. /opt/minc-itk4/minc-toolkit-config.sh' >> /etc/profile
 echo '. /opt/minc-itk4/minc-toolkit-config.sh' >> /etc/bash.bashrc
 
 #Enable minc-toolkit in this script
+set +u
 . /opt/minc-itk4/minc-toolkit-config.sh
+set -u
 
 #Download other packages
 wget --progress=dot:mega $pyminc -O pyminc.tar.gz
