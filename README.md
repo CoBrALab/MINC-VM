@@ -15,7 +15,7 @@ You can find the latest auto-built VMs for download at:
 
 These downloads are ``.tar.gz`` files containing importable VMs.
 
-After download, extract with your tool of choice (``tar -xzvf *.tar.gz``),
+After download, rename the file (``mv hc-download hc-download.tar.gz``) and extract with your tool of choice (``tar -xzvf *.tar.gz``),
 import into Virtualbox.
 
 For help with importing VMs see:
