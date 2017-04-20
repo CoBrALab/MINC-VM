@@ -42,7 +42,7 @@ apt -y full-upgrade
 apt-get --purge -y autoremove
 
 #Command line tools
-apt install -y --no-install-recommends htop nano wget imagemagick
+apt install -y --no-install-recommends htop nano wget imagemagick parallel
 #Build tools and dependencies
 apt install -y --no-install-recommends build-essential gdebi-core \
     git imagemagick libssl-dev cmake autotools-dev automake \
