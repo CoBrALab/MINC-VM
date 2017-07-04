@@ -46,7 +46,7 @@ apt install -y --no-install-recommends htop nano wget imagemagick parallel
 #Build tools and dependencies
 apt install -y --no-install-recommends build-essential gdebi-core \
     git imagemagick libssl-dev cmake autotools-dev automake \
-    libcurl4-gnutls-dev ed libopenblas-dev python2.7 python-scikits-learn \
+    libcurl4-gnutls-dev ed python2.7 python-scikits-learn \
     python-vtk6 libvtk6-dev python-dev zlib1g-dev cython python-setuptools \
     libxml2-dev libxslt-dev python-pip graphviz-dev default-jre python3 \
     python3-setuptools python3-dev zenity
@@ -55,7 +55,6 @@ apt install -y --no-install-recommends build-essential gdebi-core \
 wget --progress=dot:mega $minc_toolkit_v2
 wget --progress=dot:mega $minc_toolkit_v1
 wget --progress=dot:mega $bic_mni_models
-wget --progress=dot:mega $mni_display
 
 #Beast models are disabled for now, they're huge
 #wget --progress=dot:mega $beast_library
@@ -69,15 +68,13 @@ done
 #Cleanup debs
 rm -f *.deb
 
-cp -f /opt/mni-display/bin/Display /opt/minc-itk4/bin/Display
-
 #Enable minc-toolkit for all users
-echo '. /opt/minc-itk4/minc-toolkit-config.sh' >> /etc/profile
-echo '. /opt/minc-itk4/minc-toolkit-config.sh' >> /etc/bash.bashrc
+echo '. /opt/minc/1.9.15/minc-toolkit-config.sh' >> /etc/profile
+echo '. /opt/minc/1.9.15/minc-toolkit-config.sh' >> /etc/bash.bashrc
 
 #Enable minc-toolkit in this script
 set +u
-. /opt/minc-itk4/minc-toolkit-config.sh
+. /opt/minc/1.9.15/minc-toolkit-config.sh
 set -u
 
 #Download other packages
@@ -105,10 +102,10 @@ mkdir pydpiper && tar xzvf pydpiper.tar.gz -C pydpiper --strip-components 1
 mkdir -p /opt/bpipe && tar xzvf bpipe.tar.gz -C /opt/bpipe --strip-components 1 && ln -s /opt/bpipe/bin/bpipe /usr/local/bin/bpipe
 
 #Build and install packages
-( cd pyezminc && python2.7 setup.py install )
+( cd pyezminc && python2.7 setup.py install --mincdir /opt/minc/1.9.15 )
 ( cd pyminc && python2.7 setup.py install )
-( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc-itk4 && make && make install && python2.7 setup.py install )
-( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc-itk4 && make && make install)
+( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.15 && make && make install && python2.7 setup.py install )
+( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc/1.9.15 && make && make install)
 ( cd generate_deformation_fields/scripts && python setup.py build_ext --inplace && python setup.py install)
 ( cd pydpiper && python3 setup.py install)
 pip install nipype==${nipype}
@@ -126,8 +123,8 @@ mkdir bicinventor && tar xzvf bicinventor.tar.gz -C bicinventor --strip-componen
 mkdir brain-view2 && tar xzvf brain-view2.tar.gz -C brain-view2 --strip-components 1
 
 ( cd quarter && cmake . && make && make install )
-( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc-itk4 --with-minc2 && make && make install )
-( cd brain-view2 && qmake MINCDIR=/opt/minc-itk4 HDF5DIR=/opt/minc-itk4 && make && cp brain-view2 /opt/minc-itk4/bin )
+( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.15 --with-minc2 && make && make install )
+( cd brain-view2 && qmake MINCDIR=/opt/minc/1.9.15 HDF5DIR=/opt/minc/1.9.15 && make && cp brain-view2 /opt/minc/1.9.15/bin )
 
 rm -rf quarter* bicinventor* brain-view2*
 
