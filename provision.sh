@@ -144,6 +144,8 @@ wget --progress=dot:mega $rstudio
 gdebi --n *.deb
 rm -f *.deb
 
+export MINC_PATH=/opt/minc/1.9.15
+
 #Install RMINC (and dependencies)
 cat <<-EOF | R --vanilla --quiet
 update.packages(repos = 'https://cran.wu.ac.at/', dependencies=TRUE, checkBuilt=TRUE, ask=FALSE)
