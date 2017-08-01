@@ -86,7 +86,7 @@
       "bicinventor={{user `bicinventor`}}", "brain_view2={{user `brain-view2`}}",
       "itksnap_minc={{user `itksnap-MINC`}}", "mni_cortical_statistics={{user `mni-cortical-statistics`}}",
       "generate_deformation_fields={{user `generate_deformation_fields`}}","nipype={{user `nipype`}}",
-      "mni_display={{user `Display`}}", "pydpiper={{user `pydpiper`}}",
+      "pydpiper={{user `pydpiper`}}",
       "bpipe={{user `bpipe`}}"]
     }
   ],
