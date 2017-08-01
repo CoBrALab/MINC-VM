@@ -71,6 +71,8 @@ rm -f *.deb
 #Enable minc-toolkit for all users
 echo '. /opt/minc/1.9.15/minc-toolkit-config.sh' >> /etc/profile
 echo '. /opt/minc/1.9.15/minc-toolkit-config.sh' >> /etc/bash.bashrc
+echo 'export PATH=/opt/minc-toolkit-extras/:$PATH' >> /etc/profile
+echo 'export PATH=/opt/minc-toolkit-extras/:$PATH' >> /etc/bash.bashrc
 
 #Enable minc-toolkit in this script
 set +u
@@ -93,6 +95,8 @@ wget --progress=dot:mega $pydpiper -O pydpiper.tar.gz
 wget --progress=dot:mega $bpipe -O bpipe.tar.gz
 
 wget https://raw.githubusercontent.com/andrewjanke/volgenmodel/master/volgenmodel -O /usr/local/bin/volgenmodel
+
+git clone https://github.com/CobraLab/minc-toolkit-extras.git /opt/minc-toolkit-extras
 
 #Do this so that we don't need to keep track of version numbers for build
 mkdir pyminc && tar xzvf pyminc.tar.gz -C pyminc --strip-components 1
