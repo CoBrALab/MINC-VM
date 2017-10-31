@@ -51,6 +51,8 @@ apt install -y --no-install-recommends build-essential gdebi-core \
     libxml2-dev libxslt-dev python-pip graphviz-dev default-jre python3 \
     python3-setuptools python3-dev zenity
 
+easy_install -U pip
+
 #Download external debs
 wget --progress=dot:mega $minc_toolkit_v2
 wget --progress=dot:mega $minc_toolkit_v1
