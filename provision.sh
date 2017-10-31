@@ -113,6 +113,7 @@ mkdir -p /opt/bpipe && tar xzvf bpipe.tar.gz -C /opt/bpipe --strip-components 1 
 ( cd generate_deformation_fields/scripts && python setup.py build_ext --inplace && python setup.py install)
 ( cd pydpiper && python3 setup.py install)
 pip install nipype==${nipype}
+pip install https://github.com/pipitone/qbatch/archive/master.zip
 
 #Cleanup
 rm -rf pyezminc* pyminc* minc-stuffs* generate_deformation_fields* pydpiper* bpipe*
