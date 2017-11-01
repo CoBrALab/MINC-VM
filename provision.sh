@@ -140,7 +140,7 @@ mkdir brain-view2 && tar xzvf brain-view2.tar.gz -C brain-view2 --strip-componen
 
 ( cd quarter && cmake . && make && make install )
 ( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.15 --with-minc2 && make && make install )
-( cd brain-view2 && qmake MINCDIR=/opt/minc/1.9.15 HDF5DIR=/opt/minc/1.9.15 && make && cp brain-view2 /opt/minc/1.9.15/bin )
+( cd brain-view2 && /usr/bin/qmake MINCDIR=/opt/minc/1.9.15 HDF5DIR=/opt/minc/1.9.15 && make && cp brain-view2 /opt/minc/1.9.15/bin )
 
 rm -rf quarter* bicinventor* brain-view2*
 
