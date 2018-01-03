@@ -52,7 +52,6 @@ apt install -y --no-install-recommends build-essential gdebi-core \
 wget --progress=dot:mega https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
 bash miniconda.sh -b -p /opt/miniconda
 export PATH="/opt/miniconda/bin:$PATH"
-echo 'source /opt/miniconda/bin/activate' >> /etc/profile
 echo 'source /opt/miniconda/bin/activate' >> /etc/bash.bashrc
 
 rm miniconda.sh
@@ -79,8 +78,6 @@ rm -f *.deb
 
 #Enable minc-toolkit for all users
 echo '. /opt/minc/1.9.15/minc-toolkit-config.sh' >> /etc/profile
-echo '. /opt/minc/1.9.15/minc-toolkit-config.sh' >> /etc/bash.bashrc
-echo 'export PATH=/opt/minc-toolkit-extras/:$PATH' >> /etc/profile
 echo 'export PATH=/opt/minc-toolkit-extras/:$PATH' >> /etc/bash.bashrc
 
 #Enable minc-toolkit in this script
