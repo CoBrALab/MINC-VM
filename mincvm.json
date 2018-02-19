@@ -16,7 +16,7 @@
     "itksnap-MINC": "http://www.bic.mni.mcgill.ca/~vfonov/temp/itksnap-3.4.0-20151130-Linux-x86_64-qt4.tar.gz",
     "mni-cortical-statistics": "https://github.com/BIC-MNI/mni.cortical.statistics/archive/ver-0_9_5.tar.gz",
     "generate_deformation_fields": "https://github.com/Mouse-Imaging-Centre/generate_deformation_fields/archive/1.0.tar.gz",
-    "nipype": "v1.0.0",
+    "nipype": "1.0.0",
     "pydpiper": "https://github.com/Mouse-Imaging-Centre/pydpiper/archive/v2.0.10.tar.gz",
     "bpipe": "https://github.com/ssadedin/bpipe/releases/download/0.9.9.5/bpipe-0.9.9.5.tar.gz"
   },
