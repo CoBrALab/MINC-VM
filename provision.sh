@@ -153,7 +153,7 @@ rm -f itksnap_minc.tar.gz
 apt-get purge $(dpkg -l | tr -s ' ' | cut -d" " -f2 | sed 's/:amd64//g' | grep -e -E '(-dev|-doc)$')
 
 #Install R
-apt install -y --no-install-recommends r-base r-base-dev lsof
+apt install -y --no-install-recommends r-base r-base-dev lsof r-recommended r-bioc-qvalue r-cran-dplyr r-cran-tidyr r-cran-lme4 r-cran-shiny r-cran-yaml r-cran-rgl r-cran-plotrix r-cran-testthat r-cran-igraph r-cran-devtools
 
 #Install rstudio
 wget --progress=dot:mega $rstudio
@@ -162,13 +162,10 @@ rm -f *.deb
 
 export MINC_PATH=/opt/minc/1.9.16
 
-#Install RMINC (and dependencies)
 cat <<-EOF | R --vanilla --quiet
-update.packages(repos = 'https://cran.wu.ac.at/', dependencies=TRUE, checkBuilt=TRUE, ask=FALSE)
-install.packages("devtools", repos = 'https://cloud.r-project.org/', dependencies=TRUE)
 library(devtools)
-install_url("$RMINC", repos = 'https://cloud.r-project.org/', dependencies=TRUE)
-install_url("$mni_cortical_statistics")
+install_url("$RMINC", repos = 'http://cloud.r-project.org/', dependencies=TRUE)
+install_url("$mni_cortical_statistics", repos = 'https://cloud.r-project.org/', dependencies=TRUE)
 quit()
 EOF
 
