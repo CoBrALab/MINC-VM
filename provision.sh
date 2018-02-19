@@ -54,6 +54,7 @@ apt install -y --no-install-recommends build-essential gdebi-core \
 
 wget --progress=dot:mega https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
 bash miniconda.sh -b -p /opt/miniconda
+OLDPATH=$PATH
 export PATH="/opt/miniconda/bin:$PATH"
 echo 'source /opt/miniconda/bin/activate' >> /etc/bash.bashrc
 
@@ -156,7 +157,8 @@ apt-get purge $(dpkg -l | tr -s ' ' | cut -d" " -f2 | sed 's/:amd64//g' | grep -
 apt install -y --no-install-recommends r-base r-base-dev lsof r-recommended r-cran-batchtools r-cran-dplyr r-cran-tidyr r-cran-lme4 r-cran-shiny \
     r-cran-gridbase r-cran-gridextra r-cran-r.utils r-cran-rcpp r-cran-doparallel r-cran-rcppparallel r-cran-matrix r-cran-tibble \
     r-cran-yaml r-cran-visnetwork r-cran-rjson r-cran-dt r-cran-rgl r-cran-plotrix r-bioc-biocinstaller r-bioc-qvalue r-cran-testthat \
-    r-cran-igraph r-cran-devtools
+    r-cran-igraph r-cran-devtools r-cran-diagrammer r-cran-downloader r-cran-influencer r-cran-readr r-cran-hms r-cran-rook r-cran-rook \
+    r-cran-xml r-cran-viridis
 
 #Install rstudio
 wget --progress=dot:mega $rstudio
@@ -164,6 +166,7 @@ gdebi --n *.deb
 rm -f *.deb
 
 export MINC_PATH=/opt/minc/1.9.16
+export PATH=$OLDPATH
 
 cat <<-EOF | R --vanilla --quiet
 library(devtools)
