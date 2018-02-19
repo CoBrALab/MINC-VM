@@ -36,7 +36,7 @@ done
 set -e
 
 echo "deb https://cloud.r-project.org/bin/linux/ubuntu xenial/" > /etc/apt/sources.list.d/R.sources.list
-add-apt-repository -y ppa:marutter/c2d4u
+apt-add-repository -y ppa:marutter/c2d4u
 
 apt update
 apt -y full-upgrade
