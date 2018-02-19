@@ -153,7 +153,10 @@ rm -f itksnap_minc.tar.gz
 apt-get purge $(dpkg -l | tr -s ' ' | cut -d" " -f2 | sed 's/:amd64//g' | grep -e -E '(-dev|-doc)$')
 
 #Install R
-apt install -y --no-install-recommends r-base r-base-dev lsof r-recommended r-bioc-qvalue r-cran-dplyr r-cran-tidyr r-cran-lme4 r-cran-shiny r-cran-yaml r-cran-rgl r-cran-plotrix r-cran-testthat r-cran-igraph r-cran-devtools
+apt install -y --no-install-recommends r-base r-base-dev lsof r-recommended r-cran-batchtools r-cran-dplyr r-cran-tidyr r-cran-lme4 r-cran-shiny \
+    r-cran-gridbase r-cran-gridextra r-cran-r.utils r-cran-rcpp r-cran-doparallel r-cran-rcppparallel r-cran-matrix r-cran-tibble \
+    r-cran-yaml r-cran-visnetwork r-cran-rjson r-cran-dt r-cran-rgl r-cran-plotrix r-bioc-biocinstaller r-bioc-qvalue r-cran-testthat \
+    r-cran-igraph r-cran-devtools
 
 #Install rstudio
 wget --progress=dot:mega $rstudio
