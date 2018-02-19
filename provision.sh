@@ -35,7 +35,7 @@ done
 
 set -e
 
-apt install -y --no-install-recommends software-properties-common python-software-properties
+apt install -y --no-install-recommends software-properties-common python-software-properties apt-transport-https
 
 echo "deb https://cloud.r-project.org/bin/linux/ubuntu xenial/" > /etc/apt/sources.list.d/R.sources.list
 apt-add-repository -y ppa:marutter/c2d4u
