@@ -35,14 +35,15 @@ done
 
 set -e
 
-echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" > /etc/apt/sources.list.d/R.sources.list
+echo "deb https://cloud.r-project.org/bin/linux/ubuntu xenial/" > /etc/apt/sources.list.d/R.sources.list
+add-apt-repository -y ppa:marutter/c2d4u
 
 apt update
 apt -y full-upgrade
 apt-get --purge -y autoremove
 
 #Command line tools
-apt install -y --no-install-recommends htop nano wget imagemagick parallel
+apt install -y --no-install-recommends htop nano wget imagemagick parallel zram-config
 #Build tools and dependencies
 apt install -y --no-install-recommends build-essential gdebi-core \
     git imagemagick libssl-dev cmake autotools-dev automake \
@@ -77,12 +78,12 @@ done
 rm -f *.deb
 
 #Enable minc-toolkit for all users
-echo '. /opt/minc/1.9.15/minc-toolkit-config.sh' >> /etc/profile
+echo '. /opt/minc/1.9.16/minc-toolkit-config.sh' >> /etc/profile
 echo 'export PATH=/opt/minc-toolkit-extras/:$PATH' >> /etc/bash.bashrc
 
 #Enable minc-toolkit in this script
 set +u
-. /opt/minc/1.9.15/minc-toolkit-config.sh
+. /opt/minc/1.9.16/minc-toolkit-config.sh
 set -u
 
 #Download other packages
@@ -112,10 +113,10 @@ mkdir pydpiper && tar xzvf pydpiper.tar.gz -C pydpiper --strip-components 1
 mkdir -p /opt/bpipe && tar xzvf bpipe.tar.gz -C /opt/bpipe --strip-components 1 && ln -s /opt/bpipe/bin/bpipe /usr/local/bin/bpipe
 
 #Build and install packages
-( cd pyezminc && python setup.py install --mincdir /opt/minc/1.9.15 )
+( cd pyezminc && python setup.py install --mincdir /opt/minc/1.9.16 )
 ( cd pyminc && python setup.py install )
-( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.15 && make && make install && python setup.py install )
-( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc/1.9.15 && make && make install)
+( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.16 && make && make install && python setup.py install )
+( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc/1.9.16 && make && make install)
 ( cd generate_deformation_fields/scripts && python setup.py build_ext --inplace && python setup.py install)
 ( cd pydpiper && python setup.py install)
 
@@ -136,8 +137,8 @@ mkdir bicinventor && tar xzvf bicinventor.tar.gz -C bicinventor --strip-componen
 mkdir brain-view2 && tar xzvf brain-view2.tar.gz -C brain-view2 --strip-components 1
 
 ( cd quarter && cmake . && make && make install )
-( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.15 --with-minc2 && make && make install )
-( cd brain-view2 && /usr/bin/qmake MINCDIR=/opt/minc/1.9.15 HDF5DIR=/opt/minc/1.9.15 && make && cp brain-view2 /opt/minc/1.9.15/bin )
+( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.16 --with-minc2 && make && make install )
+( cd brain-view2 && /usr/bin/qmake MINCDIR=/opt/minc/1.9.16 HDF5DIR=/opt/minc/1.9.16 && make && cp brain-view2 /opt/minc/1.9.16/bin )
 
 rm -rf quarter* bicinventor* brain-view2*
 
@@ -157,17 +158,14 @@ wget --progress=dot:mega $rstudio
 gdebi --n *.deb
 rm -f *.deb
 
-export MINC_PATH=/opt/minc/1.9.15
+export MINC_PATH=/opt/minc/1.9.16
 
 #Install RMINC (and dependencies)
 cat <<-EOF | R --vanilla --quiet
 update.packages(repos = 'https://cran.wu.ac.at/', dependencies=TRUE, checkBuilt=TRUE, ask=FALSE)
-source("https://bioconductor.org/biocLite.R")
-biocLite()
-library(BiocInstaller)
-install.packages("devtools", repos = 'https://cran.wu.ac.at/', dependencies=TRUE)
+install.packages("devtools", repos = 'https://cloud.r-project.org/', dependencies=TRUE)
 library(devtools)
-install_url("$RMINC", repos = 'https://cran.wu.ac.at/', dependencies=TRUE)
+install_url("$RMINC", repos = 'https://cloud.r-project.org/', dependencies=TRUE)
 install_url("$mni_cortical_statistics")
 quit()
 EOF
