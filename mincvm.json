@@ -93,10 +93,6 @@
 
   "post-processors": [
     {
-      "type": "compress",
-      "output": "{{.BuildName}}.zip"
-    },
-    {
       "type": "atlas",
       "artifact": "CoBrALab/MINC-VM",
       "artifact_type": "virtualbox.image",
