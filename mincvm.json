@@ -49,7 +49,7 @@
       "disk_size": "{{user `disk_size`}}",
       "hard_drive_interface": "sata",
       "iso_url": "http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/hwe-netboot/mini.iso",
-      "iso_checksum": "f6a8e68c152a0f34cb2952fc708c5823a1bb38a6",
+      "iso_checksum": "1483d7aa73352aa702b4bd25a8961f1ef546c221",
       "iso_checksum_type": "sha1",
       "ssh_username": "minc",
       "ssh_password": "minc",
