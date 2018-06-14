@@ -1,8 +1,5 @@
 # Builder of VirtualBox and VMWare VMs with minc-tools
 
-This project is generously supported by [HashiCorp](https://www.hashicorp.com/)
-who have graciously provided the cloud service to auto-build and host these VMs.
-
 This is a [packer](https://www.packer.io/) set of build scripts which takes
 the Ubuntu ``mini.iso`` file, installs a minimal Lubuntu-core desktop, followed
 by installing all of the MINC family of tools as well as R/RStudio for
@@ -10,21 +7,18 @@ statistical analysis.
 
 ## Usage Instructions
 
-You can find the latest auto-built VMs for download at:
-<https://atlas.hashicorp.com/CoBrALab/artifacts/MINC-VM>
+You can find the VMs for download at:
+<http://packages.bic.mni.mcgill.ca/virtual-machines/>
 
-These downloads are ``.tar.gz`` files containing importable VMs.
-
-After download, rename the file (``mv hc-download hc-download.tar.gz``) and extract with your tool of choice (``tar -xzvf *.tar.gz``),
-import into Virtualbox.
+The download is a ``.zip`` files containing an importable OVF VM, configured for
+use with VirtualBox
 
 For help with importing VMs see:
 
 <https://docs.oracle.com/cd/E26217_01/E26796/html/qs-import-vm.html>
 
-**This VM is built against Virtualbox 5.1.8 (or newer), if you have problems with Display/brain-view2,
+**This VM is built against Virtualbox 5.2.12 (or newer), if you have problems with Display/brain-view2,
 you may need to upgrade your Virtualbox or disable 3D acceleration in your configuration.***
-
 
 Getting files into and out of the VM is accomplished via the the shared folder
 feature. Shared folders are automatically mounted inside ``/media/minc``

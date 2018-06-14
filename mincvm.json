@@ -6,7 +6,6 @@
     "RMINC": "https://github.com/Mouse-Imaging-Centre/RMINC/releases/download/v1.5.1.0/RMINC_1.5.1.0.tar.gz",
     "bic-mni-models": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/bic-mni-models-0.1.1-20120421.deb",
     "beast-library": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/beast-library-1.1.0-20121212.deb",
-    "rstudio": "https://download1.rstudio.org/rstudio-1.1.423-amd64.deb",
     "pyminc": "https://github.com/Mouse-Imaging-Centre/pyminc/archive/v0.51.tar.gz",
     "minc-stuffs": "v0.1.21",
     "pyezminc": "https://github.com/BIC-MNI/pyezminc/archive/release-1.2.01.tar.gz",
@@ -16,8 +15,7 @@
     "itksnap-MINC": "http://www.bic.mni.mcgill.ca/~vfonov/temp/itksnap-3.4.0-20151130-Linux-x86_64-qt4.tar.gz",
     "mni-cortical-statistics": "https://github.com/BIC-MNI/mni.cortical.statistics/archive/ver-0_9_5.tar.gz",
     "generate_deformation_fields": "https://github.com/Mouse-Imaging-Centre/generate_deformation_fields/archive/1.0.tar.gz",
-    "nipype": "1.0.0",
-    "pydpiper": "https://github.com/Mouse-Imaging-Centre/pydpiper/archive/v2.0.10.tar.gz",
+    "pydpiper": "https://github.com/Mouse-Imaging-Centre/pydpiper/archive/v2.0.11.tar.gz",
     "bpipe": "https://github.com/ssadedin/bpipe/releases/download/0.9.9.5/bpipe-0.9.9.5.tar.gz"
   },
   "push": {
@@ -30,9 +28,7 @@
       "name": "mincvm-virtualbox",
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
-      "guest_additions_mode": "attach",
-      "guest_additions_url": "http://download.virtualbox.org/virtualbox/5.1.8/VBoxGuestAdditions_5.1.8.iso",
-      "guest_additions_sha256": "347fd39df6ddee8079ad41fbc038e2fb64952a40255d75292e8e49a0a0cbf657",
+      "guest_additions_mode": "disable",
       "headless": false,
       "format": "ova",
       "http_directory": ".",
@@ -40,7 +36,7 @@
         ["modifyvm", "{{.Name}}", "--memory", "2048"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"],
         ["modifyvm", "{{.Name}}", "--vram", "16"],
-        ["modifyvm", "{{.Name}}", "--accelerate3d", "off"]
+        ["modifyvm", "{{.Name}}", "--accelerate3d", "on"]
       ],
       "vboxmanage_post":[
         ["modifyhd", "output-mincvm-virtualbox/{{.Name}}.vdi", "--compact"],
@@ -48,9 +44,9 @@
       ],
       "disk_size": "{{user `disk_size`}}",
       "hard_drive_interface": "sata",
-      "iso_url": "http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/hwe-netboot/mini.iso",
-      "iso_checksum": "1483d7aa73352aa702b4bd25a8961f1ef546c221",
-      "iso_checksum_type": "sha1",
+      "iso_url": "http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/mini.iso",
+      "iso_checksum": "b1699ee5b8faa3b268a6895c1483c73f0a2433029af5d7bf84701d999d366150b824d23c286161039dd18473327bcaa2ca684b8c6e9a8537d24bfe582c65f4a2",
+      "iso_checksum_type": "sha512",
       "ssh_username": "minc",
       "ssh_password": "minc",
       "ssh_wait_timeout": "120m",
@@ -93,13 +89,9 @@
 
   "post-processors": [
     {
-      "type": "atlas",
-      "artifact": "CoBrALab/MINC-VM",
-      "artifact_type": "virtualbox.image",
-      "metadata": {
-        "created_at": "{{timestamp}}"
-      }
+      "type": "compress",
+      "output": "{{.BuildName}}.zip"
     }
-  ]
+]
 
 }
