@@ -20,22 +20,13 @@ EOF
 #Enable neurodebian
 wget -O- http://neuro.debian.net/lists/artful.us-nh.full > /etc/apt/sources.list.d/neurodebian.sources.list
 
-set +e
-apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xA5D32F012649A5A9
-while [ $? -ne 0 ]; do
-    apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xA5D32F012649A5A9
-done
-
-
-#Enable R mirror
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-while [ $? -ne 0 ]; do
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-done
-
-set -e
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0xA5D32F012649A5A9
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 
 apt install -y --no-install-recommends software-properties-common apt-transport-https
+
+apt-add-repository -y "deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/"
+add-apt-repository -y ppa:marutter/c2d4u3.5
 
 apt update
 apt -y full-upgrade
@@ -43,26 +34,26 @@ apt-get --purge -y autoremove
 
 #Command line tools
 apt install -y --no-install-recommends htop nano wget imagemagick parallel zram-config
+
 #Build tools and dependencies
 apt install -y --no-install-recommends build-essential gdebi-core \
     git imagemagick libssl-dev cmake autotools-dev automake \
-    libcurl4-gnutls-dev ed zlib1g-dev libxml2-dev libxslt-dev default-jre \
-    zenity
+    ed zlib1g-dev libxml2-dev libxslt-dev openjdk-8-jre \
+    zenity libcurl4-openssl-dev
 
 wget --progress=dot:mega https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
 bash miniconda.sh -b -p /opt/miniconda
+rm miniconda.sh
+
 OLDPATH=$PATH
 export PATH="/opt/miniconda/bin:$PATH"
 echo 'source /opt/miniconda/bin/activate' >> /etc/bash.bashrc
 
-rm miniconda.sh
+conda config --append channels conda-forge
+conda config --append channels bioconda
+conda config --append channels simpleitk
 
-conda config --add channels defaults
-conda config --add channels conda-forge
-conda config --add channels bioconda
-
-conda install --yes numpy scipy python-graphviz scikit-image scikit-learn pip cython setuptools
-conda install --yes -c simpleitk simpleitk
+conda install --yes numpy scipy python-graphviz scikit-image scikit-learn pip cython setuptools simpleitk nipype
 
 #Download external debs
 wget --progress=dot:mega $minc_toolkit_v2
@@ -85,7 +76,7 @@ rm -f *.deb
 echo '. /opt/minc/1.9.16/minc-toolkit-config.sh' >> /etc/profile
 echo 'export PATH=/opt/minc-toolkit-extras/:$PATH' >> /etc/bash.bashrc
 
-#Enable minc-toolkit in this script
+#Enable minc-toolkit in this script, need to escape error checking
 set +u
 . /opt/minc/1.9.16/minc-toolkit-config.sh
 set -u
@@ -124,8 +115,6 @@ mkdir -p /opt/bpipe && tar xzvf bpipe.tar.gz -C /opt/bpipe --strip-components 1 
 ( cd generate_deformation_fields/scripts && python setup.py build_ext --inplace && python setup.py install)
 ( cd pydpiper && python setup.py install)
 
-conda install nipype
-
 pip install https://github.com/pipitone/qbatch/archive/master.zip
 
 #Cleanup
@@ -151,60 +140,36 @@ wget $itksnap_minc -O itksnap_minc.tar.gz
 tar xzvf itksnap_minc.tar.gz -C /usr/local --strip-components 1
 rm -f itksnap_minc.tar.gz
 
-#Purge unneeded packages
-apt-get purge $(dpkg -l | tr -s ' ' | cut -d" " -f2 | sed 's/:amd64//g' | grep -e -E '(-dev|-doc)$')
-
 #Install R
-#apt install -y --no-install-recommends r-base r-base-dev lsof r-recommended r-cran-batchtools r-cran-dplyr r-cran-tidyr r-cran-lme4 r-cran-shiny \
-#    r-cran-gridbase r-cran-gridextra r-cran-r.utils r-cran-rcpp r-cran-doparallel r-cran-rcppparallel r-cran-matrix r-cran-tibble \
-#    r-cran-yaml r-cran-visnetwork r-cran-rjson r-cran-dt r-cran-rgl r-cran-plotrix r-bioc-biocinstaller r-bioc-qvalue r-cran-testthat \
-#    r-cran-igraph r-cran-devtools r-cran-diagrammer r-cran-downloader r-cran-influencer r-cran-readr r-cran-hms r-cran-rook r-cran-rook \
-#    r-cran-xml r-cran-viridis
+apt install -y --no-install-recommends r-base r-base-dev lsof r-recommended r-cran-batchtools r-cran-dplyr r-cran-tidyr r-cran-lme4 r-cran-shiny \
+    r-cran-gridbase r-cran-gridextra r-cran-r.utils r-cran-rcpp r-cran-doparallel r-cran-rcppparallel r-cran-matrix r-cran-tibble \
+    r-cran-yaml r-cran-visnetwork r-cran-rjson r-cran-dt r-cran-rgl r-cran-plotrix r-bioc-biocinstaller r-bioc-qvalue r-cran-testthat \
+    r-cran-igraph r-cran-devtools r-cran-diagrammer r-cran-downloader r-cran-influencer r-cran-readr r-cran-hms r-cran-rook r-cran-rook \
+    r-cran-xml r-cran-viridis r-cran-data.tree
 
-conda install --yes r r-essentials r-recommended rstudio
-conda install --yes gcc_linux-64 gxx_linux-64 gfortran_linux-64 r-acepack r-adgoftest r-aer r-afex r-anomalydetection \
-r-ape r-argparse r-assertthat r-backports r-base r-base64enc r-bcp r-bdsmatrix r-bestglm r-bh r-bindr r-bindrcpp r-bit r-bit64 \
-r-bitops r-blob r-boot r-bradleyterry2 r-brew r-brglm r-broom r-cairo r-car r-caret r-catools r-cellranger r-checkmate r-chron \
-r-class r-cluster r-coda r-codetools r-coin r-colorspace r-commonmark r-config r-copula r-crayon r-crosstalk r-ctv r-curl \
-r-cvst r-cvtools r-data.table r-dbi r-dbplyr r-ddalpha r-debugme r-deoptimr r-desc r-devtools r-diagrammer r-dichromat \
-r-digest r-dimred r-domc r-doparallel r-downloader r-dplyr r-drr r-dt r-dygraphs r-e1071 r-essentials r-estimability \
-r-evaluate r-feather r-findpython r-forcats r-foreach r-forecast r-foreign r-formatr r-formattable r-formula r-fracdiff \
-r-functional r-fwdselect r-gdata r-getopt r-ggplot2 r-ggvis r-gistr r-git2r r-glmnet r-glue r-gmp r-gower r-gplots \
-r-gridbase r-gridextra r-grpreg r-gsl r-gsw r-gtable r-gtools r-haven r-hexbin r-highcharter r-highr r-hmisc r-hms \
-r-htmltable r-htmltools r-htmlwidgets r-httpuv r-httr r-hunspell r-igraph r-influencer r-inline r-ipred r-irdisplay \
-r-irkernel r-irlba r-iterators r-janeaustenr r-jpeg r-jsonlite r-kernlab r-kernsmooth r-knitr r-kohonen r-labeling \
-r-lahman r-lars r-lattice r-latticeextra r-lava r-lazyeval r-leaflet r-leaps r-lintr r-lme4 r-lmertest r-lmtest \
-r-logging r-lsmeans r-lubridate r-magrittr r-manipulate r-mapproj r-maps r-maptools r-markdown r-mass r-matrix \
-r-matrixmodels r-memoise r-mgcv r-microbenchmark r-mime r-miniui r-minqa r-mlmrev r-mnormt r-modelmetrics r-modelr \
-r-modeltools r-mongolite r-multcomp r-munsell r-mvtnorm r-networkd3 r-nlme r-nloptr r-nlp r-nmf r-nnet r-numderiv \
-r-nycflights13 r-oce r-odbc r-openssl r-packrat r-pbdzmq r-pbkrtest r-pcapp r-perm r-pkgconfig r-pkgmaker r-pki \
-r-plm r-plogr r-plyr r-png r-polspline r-praise r-proc r-processx r-prodlim r-profilemodel r-profvis r-proto \
-r-pryr r-pspline r-psych r-purrr r-quadprog r-quantmod r-quantreg r-qvcalc r-r.methodss3 r-r.oo r-r.utils r-r6 \
-r-randomforest r-rappdirs r-raster r-rbokeh r-rcolorbrewer r-rcpp r-rcpparmadillo r-rcppeigen r-rcpproll r-rcurl \
-r-readr r-readxl r-recipes r-registry r-rematch r-repr r-reshape r-reshape2 r-reticulate r-rex r-rgexf \
-r-rgl r-rhive r-rjava r-rjdbc r-rjson r-rjsonio r-rlang r-rlist r-rmarkdown r-rmr2 r-rms r-rngtools r-robustbase \
-r-rocr r-rodbc r-rook r-roxygen2 r-rpart r-rprojroot r-rsconnect r-rserve r-rsqlite r-rstan r-rstudioapi \
-r-rversions r-rvest r-rzmq r-sandwich r-scales r-seacarb r-selectr r-sf r-sfsmisc r-shiny \
-r-shinybs r-shinycssloaders r-shinydashboard r-shinyjs r-shinysky r-shinythemes r-slam r-snowballc r-sourcetools \
-r-sp r-sparklyr r-sparsem r-spatial r-stabledist r-stanheaders r-stringdist r-stringi r-stringr r-strucchange \
-r-survival r-tensorflow r-testit r-testthat r-tfruns r-th.data r-threejs r-tibble r-tidyr r-tidyselect r-tidytext \
-r-tidyverse r-tilegramsr r-timedate r-tm r-tokenizers r-tseries r-ttr r-udunits2 r-units r-urca r-uuid r-vars \
-r-vgam r-viridis r-viridislite r-visnetwork r-weatherdata r-whisker r-withr r-xlsx r-xlsxjars r-xml r-xml2 r-xtable r-xts r-yaml r-zoo
 
 #Install rstudio
-#wget --progress=dot:mega $rstudio
-#gdebi --n *.deb
-#rm -f *.deb
+wget --progress=dot:mega ${rstudio}
+gdebi --n *.deb
+rm -f *.deb
 
 export MINC_PATH=/opt/minc/1.9.16
-#export PATH=$OLDPATH
+export PATH=${OLDPATH}
 
-cat <<-EOF | R --vanilla --quiet
+cat <<-EOF | Rscript --vanilla -
+r = getOption("repos") 
+r["CRAN"] = 'http://cloud.r-project.org/'
+options(repos = r)
+rm(r)
 library(devtools)
-install_url("$RMINC", repos = 'http://cloud.r-project.org/', dependencies=TRUE)
-install_url("$mni_cortical_statistics", repos = 'https://cloud.r-project.org/', dependencies=TRUE)
-quit()
+withCallingHandlers(install_url("$RMINC", dependencies=TRUE, upgrade_dependencies=FALSE),
+                    warning = function(w) stop(w))
+withCallingHandlers(install_url("$mni_cortical_statistics", dependencies=TRUE, upgrade_dependencies=FALSE),
+                    warning = function(w) stop(w))
 EOF
+
+#Purge unneeded packages
+apt-get purge $(dpkg -l | tr -s ' ' | cut -d" " -f2 | sed 's/:amd64//g' | grep -e -E '(-dev|-doc)$')
 
 #Remove a hunk of useless packages which seem to be safe to remove
 apt-get -y purge printer-driver.* xserver-xorg-video.* xscreensaver.* wpasupplicant wireless-tools .*vdpau.* \
