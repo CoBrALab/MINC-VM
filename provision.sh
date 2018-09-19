@@ -162,10 +162,8 @@ r["CRAN"] = 'http://cloud.r-project.org/'
 options(repos = r)
 rm(r)
 library(devtools)
-withCallingHandlers(install_url("$RMINC", dependencies=TRUE, upgrade_dependencies=FALSE),
-                    warning = function(w) stop(w))
-withCallingHandlers(install_url("$mni_cortical_statistics", dependencies=TRUE, upgrade_dependencies=FALSE),
-                    warning = function(w) stop(w))
+stopifnot((install_url("$RMINC", dependencies=TRUE, upgrade_dependencies=FALSE)))
+stopifnot((install_url("$mni_cortical_statistics", dependencies=TRUE, upgrade_dependencies=FALSE)))
 EOF
 
 #Purge unneeded packages
