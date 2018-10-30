@@ -74,6 +74,7 @@ rm -f *.deb
 
 #Enable minc-toolkit for all users
 echo '. /opt/minc/1.9.16/minc-toolkit-config.sh' >> /etc/profile
+echo 'export LD_LIBRARY_PATH=/opt/minc/1.9.16/lib' >> /etc/profile
 echo 'export PATH=/opt/minc-toolkit-extras/:$PATH' >> /etc/bash.bashrc
 
 #Enable minc-toolkit in this script, need to escape error checking
@@ -130,8 +131,8 @@ mkdir bicinventor && tar xzvf bicinventor.tar.gz -C bicinventor --strip-componen
 mkdir brain-view2 && tar xzvf brain-view2.tar.gz -C brain-view2 --strip-components 1
 
 ( cd quarter && cmake . && make && make install )
-( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.16 --with-minc2 && make && make install )
-( cd brain-view2 && /usr/bin/qmake MINCDIR=/opt/minc/1.9.16 HDF5DIR=/opt/minc/1.9.16 && make && cp brain-view2 /opt/minc/1.9.16/bin )
+( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.16 --prefix=/opt/minc/1.9.16 --with-minc2 && make && make install )
+( cd brain-view2 && /usr/bin/qmake-qt4 MINCDIR=/opt/minc/1.9.16 HDF5DIR=/opt/minc/1.9.16 INVENTORDIR=/opt/minc/1.9.16 && make && cp brain-view2 /opt/minc/1.9.16/bin )
 
 rm -rf quarter* bicinventor* brain-view2*
 
