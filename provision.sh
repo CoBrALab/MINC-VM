@@ -163,8 +163,10 @@ r["CRAN"] = 'http://cloud.r-project.org/'
 options(repos = r)
 rm(r)
 library(devtools)
-stopifnot((install_url("$RMINC", dependencies=TRUE, upgrade_dependencies=FALSE)))
-stopifnot((install_url("$mni_cortical_statistics", dependencies=TRUE, upgrade_dependencies=FALSE)))
+res <- install_url("$RMINC", args = "--configure-args='--with-build-path=/opt/minc/1.9.16'", dependencies=TRUE, upgrade=FALSE)
+if(isFALSE(res)) stop("Couldn't install RMINC")
+res <- install_url("$mni_cortical_statistics", dependencies=TRUE, upgrade=FALSE)
+if(isFALSE(res)) stop("Couldn't install mni_cortical_statistics")
 EOF
 
 #Purge unneeded packages
