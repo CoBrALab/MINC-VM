@@ -47,7 +47,7 @@ rm miniconda.sh
 
 OLDPATH=$PATH
 export PATH="/opt/miniconda/bin:$PATH"
-echo 'source /opt/miniconda/bin/activate' >> /etc/bash.bashrc
+echo 'source /opt/miniconda/bin/activate' >> /home/minc/.bashrc
 
 conda config --append channels conda-forge
 conda config --append channels bioconda
@@ -73,13 +73,13 @@ done
 rm -f *.deb
 
 #Enable minc-toolkit for all users
-echo '. /opt/minc/1.9.16/minc-toolkit-config.sh' >> /etc/profile
-echo 'export LD_LIBRARY_PATH=/opt/minc/1.9.16/lib' >> /etc/profile
-echo 'export PATH=/opt/minc-toolkit-extras/:$PATH' >> /etc/bash.bashrc
+echo '. /opt/minc/1.9.17/minc-toolkit-config.sh' >> /home/minc/.bashrc
+echo 'export LD_LIBRARY_PATH=/opt/minc/1.9.17/lib' >> /home/minc/.bashrc
+echo 'export PATH=/opt/minc-toolkit-extras/:$PATH' >> /home/minc/.bashrc
 
 #Enable minc-toolkit in this script, need to escape error checking
 set +u
-. /opt/minc/1.9.16/minc-toolkit-config.sh
+. /opt/minc/1.9.17/minc-toolkit-config.sh
 set -u
 
 #Download other packages
@@ -109,10 +109,10 @@ mkdir pydpiper && tar xzvf pydpiper.tar.gz -C pydpiper --strip-components 1
 mkdir -p /opt/bpipe && tar xzvf bpipe.tar.gz -C /opt/bpipe --strip-components 1 && ln -s /opt/bpipe/bin/bpipe /usr/local/bin/bpipe
 
 #Build and install packages
-( cd pyezminc && python setup.py install --mincdir /opt/minc/1.9.16 )
+( cd pyezminc && python setup.py install --mincdir /opt/minc/1.9.17 )
 ( cd pyminc && python setup.py install )
-( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.16 && make && make install && python setup.py install )
-( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc/1.9.16 && make && make install)
+( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.17 && make && make install && python setup.py install )
+( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc/1.9.17 && make && make install)
 ( cd generate_deformation_fields/scripts && python setup.py build_ext --inplace && python setup.py install)
 ( cd pydpiper && python setup.py install)
 
@@ -131,8 +131,8 @@ mkdir bicinventor && tar xzvf bicinventor.tar.gz -C bicinventor --strip-componen
 mkdir brain-view2 && tar xzvf brain-view2.tar.gz -C brain-view2 --strip-components 1
 
 ( cd quarter && cmake . && make && make install )
-( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.16 --prefix=/opt/minc/1.9.16 --with-minc2 && make && make install )
-( cd brain-view2 && /usr/bin/qmake-qt4 MINCDIR=/opt/minc/1.9.16 HDF5DIR=/opt/minc/1.9.16 INVENTORDIR=/opt/minc/1.9.16 && make && cp brain-view2 /opt/minc/1.9.16/bin )
+( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.17 --prefix=/opt/minc/1.9.17 --with-minc2 && make && make install )
+( cd brain-view2 && /usr/bin/qmake-qt4 MINCDIR=/opt/minc/1.9.17 HDF5DIR=/opt/minc/1.9.17 INVENTORDIR=/opt/minc/1.9.17 && make && cp brain-view2 /opt/minc/1.9.17/bin )
 
 rm -rf quarter* bicinventor* brain-view2*
 
@@ -154,7 +154,7 @@ wget --progress=dot:mega ${rstudio}
 gdebi --n *.deb
 rm -f *.deb
 
-export MINC_PATH=/opt/minc/1.9.16
+export MINC_PATH=/opt/minc/1.9.17
 export PATH=${OLDPATH}
 
 cat <<-EOF | Rscript --vanilla -
@@ -163,7 +163,7 @@ r["CRAN"] = 'http://cloud.r-project.org/'
 options(repos = r)
 rm(r)
 library(devtools)
-res <- install_url("$RMINC", args = "--configure-args='--with-build-path=/opt/minc/1.9.16'", dependencies=TRUE, upgrade=FALSE)
+res <- install_url("$RMINC", args = "--configure-args='--with-build-path=/opt/minc/1.9.17'", dependencies=TRUE, upgrade=FALSE)
 if(isFALSE(res)) stop("Couldn't install RMINC")
 res <- install_url("$mni_cortical_statistics", dependencies=TRUE, upgrade=FALSE)
 if(isFALSE(res)) stop("Couldn't install mni_cortical_statistics")
