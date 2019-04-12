@@ -41,7 +41,7 @@ apt install -y --no-install-recommends build-essential gdebi-core \
   git imagemagick libssl-dev cmake autotools-dev automake \
   ed zlib1g-dev libxml2-dev libxslt-dev openjdk-8-jre \
   zenity libcurl4-openssl-dev bc gawk libxkbcommon-x11-0 \
-  ttf-mscorefonts-installer
+  ttf-mscorefonts-installer bc
 
 wget --progress=dot:mega https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
 bash miniconda.sh -b -p /opt/miniconda
