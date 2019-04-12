@@ -33,13 +33,15 @@ apt -y full-upgrade
 apt-get --purge -y autoremove
 
 #Command line tools
-apt install -y --no-install-recommends htop nano wget imagemagick parallel zram-config
+apt install -y --no-install-recommends htop nano wget imagemagick parallel zram-config debconf
 
 #Build tools and dependencies
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
 apt install -y --no-install-recommends build-essential gdebi-core \
-    git imagemagick libssl-dev cmake autotools-dev automake \
-    ed zlib1g-dev libxml2-dev libxslt-dev openjdk-8-jre \
-    zenity libcurl4-openssl-dev
+  git imagemagick libssl-dev cmake autotools-dev automake \
+  ed zlib1g-dev libxml2-dev libxslt-dev openjdk-8-jre \
+  zenity libcurl4-openssl-dev bc gawk libxkbcommon-x11-0 \
+  ttf-mscorefonts-installer
 
 wget --progress=dot:mega https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
 bash miniconda.sh -b -p /opt/miniconda
@@ -60,13 +62,12 @@ wget --progress=dot:mega $minc_toolkit_v2
 wget --progress=dot:mega $minc_toolkit_v1
 wget --progress=dot:mega $bic_mni_models
 
-#Beast models are disabled for now, they're huge
-#wget --progress=dot:mega $beast_library
+wget --progress=dot:mega $beast_library
 
 #Install downloaded debs
 for file in *.deb
 do
-	gdebi --n $file
+  gdebi --n $file
 done
 
 #Cleanup debs
@@ -84,28 +85,20 @@ set -u
 
 #Download other packages
 wget --progress=dot:mega $pyminc -O pyminc.tar.gz
-
-#Can't use wget because submodule doesn't show up in package
-#wget --progress=dot:mega https://github.com/Mouse-Imaging-Centre/minc-stuffs/archive/v0.1.14.tar.gz -O minc-stuffs.tar.gz
-git clone --recursive --branch $minc_stuffs https://github.com/Mouse-Imaging-Centre/minc-stuffs.git minc-stuffs
-
+wget --progress=dot:mega $minc_stuffs -O minc-stuffs.tar.gz
 wget --progress=dot:mega $pyezminc -O pyezminc.tar.gz
-
 wget --progress=dot:mega $generate_deformation_fields -O generate_deformation_fields.tar.gz
-
 wget --progress=dot:mega $pydpiper -O pydpiper.tar.gz
-
 wget --progress=dot:mega $bpipe -O bpipe.tar.gz
-
 wget https://raw.githubusercontent.com/andrewjanke/volgenmodel/master/volgenmodel -O /usr/local/bin/volgenmodel
-
 git clone https://github.com/CobraLab/minc-toolkit-extras.git /opt/minc-toolkit-extras
 
 #Do this so that we don't need to keep track of version numbers for build
-mkdir pyminc && tar xzvf pyminc.tar.gz -C pyminc --strip-components 1
-mkdir pyezminc && tar xzvf pyezminc.tar.gz -C pyezminc --strip-components 1
-mkdir generate_deformation_fields && tar xzvf generate_deformation_fields.tar.gz -C generate_deformation_fields  --strip-components 1
-mkdir pydpiper && tar xzvf pydpiper.tar.gz -C pydpiper --strip-components 1
+mkdir -p pyminc && tar xzvf pyminc.tar.gz -C pyminc --strip-components 1
+mkdir -p minc-stuffs && tar xzvf minc-stuffs.tar.gz -C minc-stuffs --strip-components 1
+mkdir -p generate_deformation_fields && tar xzvf generate_deformation_fields.tar.gz -C generate_deformation_fields --strip-components 1
+mkdir -p pyezminc && tar xzvf pyezminc.tar.gz -C pyezminc --strip-components 1
+mkdir -p pydpiper && tar xzvf pydpiper.tar.gz -C pydpiper --strip-components 1
 mkdir -p /opt/bpipe && tar xzvf bpipe.tar.gz -C /opt/bpipe --strip-components 1 && ln -s /opt/bpipe/bin/bpipe /usr/local/bin/bpipe
 
 #Build and install packages
@@ -116,7 +109,7 @@ mkdir -p /opt/bpipe && tar xzvf bpipe.tar.gz -C /opt/bpipe --strip-components 1 
 ( cd generate_deformation_fields/scripts && python setup.py build_ext --inplace && python setup.py install)
 ( cd pydpiper && python setup.py install)
 
-pip install https://github.com/pipitone/qbatch/archive/master.zip
+pip install qbatch
 
 #Cleanup
 rm -rf pyezminc* pyminc* minc-stuffs* generate_deformation_fields* pydpiper* bpipe*
@@ -143,10 +136,10 @@ rm -f itksnap_minc.tar.gz
 
 #Install R
 apt install -y --no-install-recommends r-base r-base-dev lsof r-recommended r-cran-batchtools r-cran-dplyr r-cran-tidyr r-cran-lme4 r-cran-shiny \
-    r-cran-gridbase r-cran-gridextra r-cran-r.utils r-cran-rcpp r-cran-doparallel r-cran-rcppparallel r-cran-matrix r-cran-tibble \
-    r-cran-yaml r-cran-visnetwork r-cran-rjson r-cran-dt r-cran-rgl r-cran-plotrix r-bioc-biocinstaller r-bioc-qvalue r-cran-testthat \
-    r-cran-igraph r-cran-devtools r-cran-diagrammer r-cran-downloader r-cran-influencer r-cran-readr r-cran-hms r-cran-rook r-cran-rook \
-    r-cran-xml r-cran-viridis r-cran-data.tree
+  r-cran-gridbase r-cran-gridextra r-cran-r.utils r-cran-rcpp r-cran-doparallel r-cran-rcppparallel r-cran-matrix r-cran-tibble \
+  r-cran-yaml r-cran-visnetwork r-cran-rjson r-cran-dt r-cran-rgl r-cran-plotrix r-bioc-biocinstaller r-bioc-qvalue r-cran-testthat \
+  r-cran-igraph r-cran-devtools r-cran-diagrammer r-cran-downloader r-cran-influencer r-cran-readr r-cran-hms r-cran-rook r-cran-rook \
+  r-cran-xml r-cran-viridis r-cran-data.tree
 
 
 #Install rstudio
@@ -158,7 +151,7 @@ export MINC_PATH=/opt/minc/1.9.17
 export PATH=${OLDPATH}
 
 cat <<-EOF | Rscript --vanilla -
-r = getOption("repos") 
+r = getOption("repos")
 r["CRAN"] = 'http://cloud.r-project.org/'
 options(repos = r)
 rm(r)
@@ -167,6 +160,8 @@ res <- install_url("$RMINC", args = "--configure-args='--with-build-path=/opt/mi
 if(isFALSE(res)) stop("Couldn't install RMINC")
 res <- install_url("$mni_cortical_statistics", dependencies=TRUE, upgrade=FALSE)
 if(isFALSE(res)) stop("Couldn't install mni_cortical_statistics")
+res <- install_github("$MRIcrotome", dependencies=TRUE, upgrade=FALSE)
+if(isFALSE(res)) stop("Couldn't install mni_cortical_statistics")
 EOF
 
 #Purge unneeded packages
@@ -174,8 +169,8 @@ apt-get purge $(dpkg -l | tr -s ' ' | cut -d" " -f2 | sed 's/:amd64//g' | grep -
 
 #Remove a hunk of useless packages which seem to be safe to remove
 apt-get -y purge printer-driver.* xserver-xorg-video.* xscreensaver.* wpasupplicant wireless-tools .*vdpau.* \
-bluez-cups cups-browsed cups-bsd cups-client cups-common cups-core-drivers cups-daemon cups-filters \
-cups-filters-core-drivers cups-ppdc cups-server-common linux-headers.* snapd bluez linux-firmware .*sane.* .*ppds.*
+  bluez-cups cups-browsed cups-bsd cups-client cups-common cups-core-drivers cups-daemon cups-filters \
+  cups-filters-core-drivers cups-ppdc cups-server-common linux-headers.* snapd bluez linux-firmware .*sane.* .*ppds.*
 
 apt-get -y clean
 apt-get -y --purge autoremove

@@ -7,92 +7,96 @@
     "bic-mni-models": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/bic-mni-models-0.1.1-20120421.deb",
     "beast-library": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/beast-library-1.1.0-20121212.deb",
     "pyminc": "https://github.com/Mouse-Imaging-Centre/pyminc/archive/v0.52.tar.gz",
-    "minc-stuffs": "v0.1.24",
+    "minc-stuffs": "https://github.com/Mouse-Imaging-Centre/minc-stuffs/archive/v0.1.24.tar.gz",
     "pyezminc": "https://github.com/BIC-MNI/pyezminc/archive/release-1.2.01.tar.gz",
     "quarter": "https://github.com/Alexpux/Quarter/archive/master.tar.gz",
     "bicinventor": "https://github.com/BIC-MNI/bicInventor/archive/master.tar.gz",
     "brain-view2": "https://github.com/Mouse-Imaging-Centre/brain-view2/archive/master.tar.gz",
     "itksnap-MINC": "http://www.bic.mni.mcgill.ca/~vfonov/temp/itksnap-3.4.0-20151130-Linux-x86_64-qt4.tar.gz",
     "mni-cortical-statistics": "https://github.com/BIC-MNI/mni.cortical.statistics/archive/ver-0_9_5.tar.gz",
-    "generate_deformation_fields": "https://github.com/Mouse-Imaging-Centre/generate_deformation_fields/archive/1.0.tar.gz",
+    "generate_deformation_fields": "https://github.com/Mouse-Imaging-Centre/generate_deformation_fields/archive/1.0.1.tar.gz",
     "pydpiper": "https://github.com/Mouse-Imaging-Centre/pydpiper/archive/v2.0.13.tar.gz",
     "bpipe": "https://github.com/ssadedin/bpipe/releases/download/0.9.9.6/bpipe-0.9.9.6.tar.gz",
-    "rstudio": "https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.1335-amd64.deb"
+    "rstudio": "https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.1335-amd64.deb",
+    "MRIcrotome": "Mouse-Imaging-Centre/MRIcrotome"
   },
   "push": {
     "name": "CoBrALab/minc-toolkit-v2-vm",
     "vcs": true,
     "exclude": ["output-amd64-virtualbox", "packer_cache"]
   },
-  "builders": [
-    {
-      "name": "mincvm-virtualbox",
-      "type": "virtualbox-iso",
-      "guest_os_type": "Ubuntu_64",
-      "guest_additions_mode": "disable",
-      "headless": true,
-      "format": "ova",
-      "http_directory": ".",
-      "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "2048"],
-        ["modifyvm", "{{.Name}}", "--cpus", "1"],
-        ["modifyvm", "{{.Name}}", "--vram", "16"],
-        ["modifyvm", "{{.Name}}", "--accelerate3d", "on"]
-      ],
-      "vboxmanage_post":[
-        ["modifyhd", "output-mincvm-virtualbox/{{.Name}}.vdi", "--compact"],
-        ["modifyvm", "{{.Name}}", "--accelerate3d", "on"]
-      ],
-      "disk_size": "{{user `disk_size`}}",
-      "hard_drive_interface": "sata",
-      "iso_url": "http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/mini.iso",
-      "iso_checksum": "b1699ee5b8faa3b268a6895c1483c73f0a2433029af5d7bf84701d999d366150b824d23c286161039dd18473327bcaa2ca684b8c6e9a8537d24bfe582c65f4a2",
-      "iso_checksum_type": "sha512",
-      "ssh_username": "minc",
-      "ssh_password": "minc",
-      "ssh_wait_timeout": "120m",
-      "boot_wait": "5s",
-      "boot_command": [
-        "<tab><wait>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "linux initrd=initrd.gz",
-        " auto=true",
-        " priority=critical",
-        " url=http://{{.HTTPIP}}:{{.HTTPPort}}/lubuntu-18.04-preseed.txt",
-        " hostname=mincvm",
-        " DEBCONF_DEBUG=5",
-        "<enter>"
-      ],
-      "shutdown_command": "echo 'minc' | sudo -S shutdown -P now"
-    }
-  ],
+  "builders": [{
+    "name": "mincvm-virtualbox",
+    "type": "virtualbox-iso",
+    "guest_os_type": "Ubuntu_64",
+    "guest_additions_mode": "upload",
+    "headless": true,
+    "format": "ova",
+    "http_directory": ".",
+    "vboxmanage": [
+      ["modifyvm", "{{.Name}}", "--memory", "2048"],
+      ["modifyvm", "{{.Name}}", "--cpus", "1"],
+      ["modifyvm", "{{.Name}}", "--vram", "16"],
+      ["modifyvm", "{{.Name}}", "--accelerate3d", "on"]
+    ],
+    "vboxmanage_post": [
+      ["modifyhd", "output-mincvm-virtualbox/{{.Name}}.vdi", "--compact"],
+      ["modifyvm", "{{.Name}}", "--accelerate3d", "on"]
+    ],
+    "disk_size": "{{user `disk_size`}}",
+    "hard_drive_interface": "sata",
+    "iso_url": "http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/mini.iso",
+    "iso_checksum": "b1699ee5b8faa3b268a6895c1483c73f0a2433029af5d7bf84701d999d366150b824d23c286161039dd18473327bcaa2ca684b8c6e9a8537d24bfe582c65f4a2",
+    "iso_checksum_type": "sha512",
+    "ssh_username": "minc",
+    "ssh_password": "minc",
+    "ssh_wait_timeout": "120m",
+    "boot_wait": "5s",
+    "boot_command": [
+      "<tab><wait>",
+      "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+      "linux initrd=initrd.gz",
+      " auto=true",
+      " priority=critical",
+      " url=http://{{.HTTPIP}}:{{.HTTPPort}}/lubuntu-18.04-preseed.txt",
+      " hostname=mincvm",
+      " DEBCONF_DEBUG=5",
+      "<enter>"
+    ],
+    "shutdown_command": "echo 'minc' | sudo -S shutdown -P now"
+  }],
 
-  "provisioners": [
-    {
-      "type": "shell",
-      "execute_command": "echo 'minc' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
-      "scripts": ["virtualaddons.sh", "provision.sh"],
-      "environment_vars": ["minc_toolkit_v2={{user `minc-toolkit-v2`}}",
-      "minc_toolkit_v1={{user `minc-toolkit-v1`}}", "RMINC={{user `RMINC`}}",
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'minc' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+    "scripts": ["virtualaddons.sh", "provision.sh"],
+    "environment_vars": ["minc_toolkit_v2={{user `minc-toolkit-v2`}}",
+      "minc_toolkit_v1={{user `minc-toolkit-v1`}}",
+      "RMINC={{user `RMINC`}}",
       "bic_mni_models={{user `bic-mni-models`}}",
-      "beast_library={{user `beast-library`}}", "rstudio={{user `rstudio`}}",
-      "pyminc={{user `pyminc`}}", "minc_stuffs={{user `minc-stuffs`}}",
-      "pyezminc={{user `pyezminc`}}", "quarter={{user `quarter`}}",
-      "bicinventor={{user `bicinventor`}}", "brain_view2={{user `brain-view2`}}",
-      "itksnap_minc={{user `itksnap-MINC`}}", "mni_cortical_statistics={{user `mni-cortical-statistics`}}",
-      "generate_deformation_fields={{user `generate_deformation_fields`}}","nipype={{user `nipype`}}",
+      "beast_library={{user `beast-library`}}",
+      "rstudio={{user `rstudio`}}",
+      "pyminc={{user `pyminc`}}",
+      "minc_stuffs={{user `minc-stuffs`}}",
+      "pyezminc={{user `pyezminc`}}",
+      "quarter={{user `quarter`}}",
+      "bicinventor={{user `bicinventor`}}",
+      "brain_view2={{user `brain-view2`}}",
+      "itksnap_minc={{user `itksnap-MINC`}}",
+      "mni_cortical_statistics={{user `mni-cortical-statistics`}}",
+      "generate_deformation_fields={{user `generate_deformation_fields`}}",
+      "nipype={{user `nipype`}}",
       "pydpiper={{user `pydpiper`}}",
-      "bpipe={{user `bpipe`}}"]
-    }
-  ],
+      "bpipe={{user `bpipe`}}",
+      "MRIcrotome={{user `MRIcrotome`}}"
+    ]
+  }],
 
-  "post-processors": [
-    {
-      "type": "compress",
-      "output": "{{.BuildName}}.zip"
-    }
-]
+  "post-processors": [{
+    "type": "compress",
+    "output": "{{.BuildName}}.zip"
+  }]
 
 }
