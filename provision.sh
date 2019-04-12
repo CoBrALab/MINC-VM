@@ -33,7 +33,7 @@ apt -y full-upgrade
 apt-get --purge -y autoremove
 
 #Command line tools
-apt install -y --no-install-recommends htop nano wget imagemagick parallel zram-config
+apt install -y --no-install-recommends htop nano wget imagemagick parallel zram-config bc gawk
 
 #Build tools and dependencies
 apt install -y --no-install-recommends build-essential gdebi-core \
