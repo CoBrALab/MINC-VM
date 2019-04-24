@@ -5,20 +5,24 @@ the Ubuntu ``mini.iso`` file, installs a minimal Lubuntu-core desktop, followed
 by installing all of the MINC family of tools as well as R/RStudio for
 statistical analysis.
 
-## Usage Instructions
+## Download
 
 You can find the VMs for download at:
 <http://packages.bic.mni.mcgill.ca/virtual-machines/>
 
+## Usage Instructions
+
 The download is a ``.zip`` files containing an importable OVF VM, configured for
-use with VirtualBox
+use with VirtualBox. Unzip the file, and import into VirtualBox. If you wish
+to run analysis/processing on larger datasets, don't forget to assign more CPUs
+and more memory to the virtual machine on import.
 
 For help with importing VMs see:
 
 <https://docs.oracle.com/cd/E26217_01/E26796/html/qs-import-vm.html>
 
-**This VM is built against Virtualbox 5.2.12 (or newer), if you have problems with Display/brain-view2,
-you may need to upgrade your Virtualbox or disable 3D acceleration in your configuration.***
+**This VM is built against Virtualbox 6.0.4, if you have problems with Display/brain-view2,
+you may need to upgrade your Virtualbox or disable 3D acceleration in your configuration.**
 
 Getting files into and out of the VM is accomplished via the the shared folder
 feature. Shared folders are automatically mounted inside ``/media/minc``
