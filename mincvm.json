@@ -18,7 +18,8 @@
     "pydpiper": "https://github.com/Mouse-Imaging-Centre/pydpiper/archive/v2.0.13.tar.gz",
     "bpipe": "https://github.com/ssadedin/bpipe/releases/download/0.9.9.6/bpipe-0.9.9.6.tar.gz",
     "rstudio": "https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.1335-amd64.deb",
-    "MRIcrotome": "Mouse-Imaging-Centre/MRIcrotome"
+    "MRIcrotome": "Mouse-Imaging-Centre/MRIcrotome",
+    "minc2-simple": "https://github.com/vfonov/minc2-simple/archive/v2.2.30.tar.gz"
   },
   "push": {
     "name": "CoBrALab/minc-toolkit-v2-vm",
@@ -90,7 +91,8 @@
       "nipype={{user `nipype`}}",
       "pydpiper={{user `pydpiper`}}",
       "bpipe={{user `bpipe`}}",
-      "MRIcrotome={{user `MRIcrotome`}}"
+      "MRIcrotome={{user `MRIcrotome`}}",
+      "minc2_simple={{user `minc2-simple`}}"
     ]
   }],
 

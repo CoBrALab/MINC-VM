@@ -87,6 +87,7 @@ set -u
 wget --progress=dot:mega $pyminc -O pyminc.tar.gz
 wget --progress=dot:mega $minc_stuffs -O minc-stuffs.tar.gz
 wget --progress=dot:mega $pyezminc -O pyezminc.tar.gz
+wget --progress=dot:mega $minc2_simple -O minc2-simple.tar.gz
 wget --progress=dot:mega $generate_deformation_fields -O generate_deformation_fields.tar.gz
 wget --progress=dot:mega $pydpiper -O pydpiper.tar.gz
 wget --progress=dot:mega $bpipe -O bpipe.tar.gz
@@ -98,11 +99,13 @@ mkdir -p pyminc && tar xzvf pyminc.tar.gz -C pyminc --strip-components 1
 mkdir -p minc-stuffs && tar xzvf minc-stuffs.tar.gz -C minc-stuffs --strip-components 1
 mkdir -p generate_deformation_fields && tar xzvf generate_deformation_fields.tar.gz -C generate_deformation_fields --strip-components 1
 mkdir -p pyezminc && tar xzvf pyezminc.tar.gz -C pyezminc --strip-components 1
+mkdir -p minc2-simple &&  tar xzvf minc2-simple.tar.gz -C minc2-simple --strip-components 1
 mkdir -p pydpiper && tar xzvf pydpiper.tar.gz -C pydpiper --strip-components 1
 mkdir -p /opt/bpipe && tar xzvf bpipe.tar.gz -C /opt/bpipe --strip-components 1 && ln -s /opt/bpipe/bin/bpipe /usr/local/bin/bpipe
 
 #Build and install packages
 ( cd pyezminc && python setup.py install --mincdir /opt/minc/1.9.17 )
+( cd minc2-simple && python python/setup.py install && mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=${MINC_TOOLKIT} .. && make install )
 ( cd pyminc && python setup.py install )
 ( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.17 && make && make install && python setup.py install )
 ( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc/1.9.17 && make && make install)
