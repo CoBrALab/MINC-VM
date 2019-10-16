@@ -18,7 +18,7 @@ user-session=Lubuntu
 EOF
 
 #Enable neurodebian
-wget -O- http://neuro.debian.net/lists/artful.us-nh.full > /etc/apt/sources.list.d/neurodebian.sources.list
+wget -O- http://neuro.debian.net/lists/bionic.us-nh.full  > /etc/apt/sources.list.d/neurodebian.sources.list
 
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0xA5D32F012649A5A9
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
@@ -31,6 +31,9 @@ add-apt-repository -y ppa:marutter/c2d4u3.5
 apt update
 apt -y full-upgrade
 apt-get --purge -y autoremove
+
+#Essentials
+apt install -y build-essential
 
 #Command line tools
 apt install -y --no-install-recommends htop nano wget imagemagick parallel zram-config debconf
@@ -105,10 +108,10 @@ mkdir -p /opt/bpipe && tar xzvf bpipe.tar.gz -C /opt/bpipe --strip-components 1 
 
 #Build and install packages
 ( cd pyezminc && python setup.py install --mincdir /opt/minc/1.9.17 )
-( cd minc2-simple && python python/setup.py install && mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=${MINC_TOOLKIT} .. && make install )
+( cd minc2-simple && python python/setup.py install && mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=${MINC_TOOLKIT} .. && make -j4 install )
 ( cd pyminc && python setup.py install )
-( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.17 && make && make install && python setup.py install )
-( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc/1.9.17 && make && make install)
+( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.17 && make -j4 install && python setup.py install )
+( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc/1.9.17 && make -j4 install)
 ( cd generate_deformation_fields/scripts && python setup.py build_ext --inplace && python setup.py install)
 ( cd pydpiper && python setup.py install)
 
@@ -126,16 +129,16 @@ mkdir quarter && tar xzvf quarter.tar.gz -C quarter --strip-components 1
 mkdir bicinventor && tar xzvf bicinventor.tar.gz -C bicinventor --strip-components 1
 mkdir brain-view2 && tar xzvf brain-view2.tar.gz -C brain-view2 --strip-components 1
 
-( cd quarter && cmake . && make && make install )
-( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.17 --prefix=/opt/minc/1.9.17 --with-minc2 && make && make install )
-( cd brain-view2 && /usr/bin/qmake-qt4 MINCDIR=/opt/minc/1.9.17 HDF5DIR=/opt/minc/1.9.17 INVENTORDIR=/opt/minc/1.9.17 && make && cp brain-view2 /opt/minc/1.9.17/bin )
+( cd quarter && cmake . && make -j4 install )
+( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.17 --prefix=/opt/minc/1.9.17 --with-minc2 && make -j4 install )
+( cd brain-view2 && /usr/bin/qmake-qt4 MINCDIR=/opt/minc/1.9.17 HDF5DIR=/opt/minc/1.9.17 INVENTORDIR=/opt/minc/1.9.17 && make -j4 && cp brain-view2 /opt/minc/1.9.17/bin )
 
 rm -rf quarter* bicinventor* brain-view2*
 
 #Install itksnap-MINC
-wget $itksnap_minc -O itksnap_minc.tar.gz
-tar xzvf itksnap_minc.tar.gz -C /usr/local --strip-components 1
-rm -f itksnap_minc.tar.gz
+#wget $itksnap_minc -O itksnap_minc.deb
+#gdebi -n itksnap_minc.deb
+#rm -f itksnap_minc.deb
 
 #Install R
 apt install -y --no-install-recommends r-base r-base-dev lsof r-recommended r-cran-batchtools r-cran-dplyr r-cran-tidyr r-cran-lme4 r-cran-shiny \
@@ -157,6 +160,7 @@ cat <<-EOF | Rscript --vanilla -
 r = getOption("repos")
 r["CRAN"] = 'http://cloud.r-project.org/'
 options(repos = r)
+options(Ncpus = 4)
 rm(r)
 library(devtools)
 res <- install_url("$RMINC", args = "--configure-args='--with-build-path=/opt/minc/1.9.17'", dependencies=TRUE, upgrade=FALSE)
@@ -171,18 +175,9 @@ EOF
 apt-get purge $(dpkg -l | tr -s ' ' | cut -d" " -f2 | sed 's/:amd64//g' | grep -e -E '(-dev|-doc)$')
 
 #Remove a hunk of useless packages which seem to be safe to remove
-apt-get -y purge printer-driver.* xserver-xorg-video.* xscreensaver.* wpasupplicant wireless-tools .*vdpau.* \
+apt-get -y purge printer-driver.* xscreensaver.* wpasupplicant wireless-tools .*vdpau.* \
   bluez-cups cups-browsed cups-bsd cups-client cups-common cups-core-drivers cups-daemon cups-filters \
   cups-filters-core-drivers cups-ppdc cups-server-common linux-headers.* snapd bluez linux-firmware .*sane.* .*ppds.*
 
 apt-get -y clean
 apt-get -y --purge autoremove
-
-#Cleanup to ensure extra files aren't packed into VM
-cd ~
-rm -rf /tmp/provision
-rm -f /var/cache/apt/archives/*.deb
-rm -rf /var/lib/apt/lists/*
-
-dd if=/dev/zero of=/zerofillfile bs=1M || true
-rm -f /zerofillfile
