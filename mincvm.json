@@ -15,7 +15,7 @@
     "itksnap-MINC": "https://packages.bic.mni.mcgill.ca/minc-toolkit/third-party/itksnap-3.6.0-minc-20170401-Linux-x86_64-qt4.deb",
     "mni-cortical-statistics": "https://github.com/BIC-MNI/mni.cortical.statistics/archive/ver-0_9_5.tar.gz",
     "generate_deformation_fields": "https://github.com/Mouse-Imaging-Centre/generate_deformation_fields/archive/1.0.1.tar.gz",
-    "pydpiper": "https://github.com/Mouse-Imaging-Centre/pydpiper/archive/v2.0.13.tar.gz",
+    "pydpiper": "https://github.com/Mouse-Imaging-Centre/pydpiper/archive/v2.0.14.tar.gz",
     "bpipe": "https://github.com/ssadedin/bpipe/releases/download/0.9.9.7/bpipe-0.9.9.7.tar.gz",
     "rstudio": "https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.5001-amd64.deb",
     "MRIcrotome": "Mouse-Imaging-Centre/MRIcrotome",
