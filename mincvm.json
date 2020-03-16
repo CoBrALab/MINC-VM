@@ -3,7 +3,7 @@
     "disk_size": "16384",
     "minc-toolkit-v2": "https://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.9.17-20190313-Ubuntu_18.04-x86_64.deb",
     "minc-toolkit-v1": "https://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.0.09-20170529-Ubuntu_18.04-x86_64.deb",
-    "RMINC": "https://github.com/Mouse-Imaging-Centre/RMINC/archive/v1.5.2.2.tar.gz",
+    "RMINC": "https://github.com/Mouse-Imaging-Centre/RMINC/archive/v1.5.2.3.tar.gz",
     "bic-mni-models": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/bic-mni-models-0.1.1-20120421.deb",
     "beast-library": "http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/beast-library-1.1.0-20121212.deb",
     "pyminc": "https://github.com/Mouse-Imaging-Centre/pyminc/archive/v0.52.tar.gz",
