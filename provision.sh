@@ -121,15 +121,15 @@ pip install qbatch
 rm -rf pyezminc* pyminc* minc-stuffs* generate_deformation_fields* pydpiper* bpipe*
 
 #Installing brain-view2
-apt install -y --no-install-recommends libcoin80-dev libpcre++-dev qt4-default libqt4-opengl-dev libtool
-wget $quarter -O quarter.tar.gz
+apt install -y --no-install-recommends libcoin80-dev libpcre++-dev qt4-default libqt4-opengl-dev libtool libboost-dev
+git clone --recursive https://github.com/coin3d/quarter.git
 wget $bicinventor -O bicinventor.tar.gz
 wget $brain_view2 -O brain-view2.tar.gz
 mkdir quarter && tar xzvf quarter.tar.gz -C quarter --strip-components 1
 mkdir bicinventor && tar xzvf bicinventor.tar.gz -C bicinventor --strip-components 1
 mkdir brain-view2 && tar xzvf brain-view2.tar.gz -C brain-view2 --strip-components 1
 
-( cd quarter && cmake . && make -j4 install )
+( cd quarter && git checkout ${quarter} && ./configure && make -j4 install )
 ( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.17 --prefix=/opt/minc/1.9.17 --with-minc2 && make -j4 install )
 ( cd brain-view2 && /usr/bin/qmake-qt4 MINCDIR=/opt/minc/1.9.17 HDF5DIR=/opt/minc/1.9.17 INVENTORDIR=/opt/minc/1.9.17 && make -j4 && cp brain-view2 /opt/minc/1.9.17/bin )
 

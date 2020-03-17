@@ -9,7 +9,7 @@
     "pyminc": "https://github.com/Mouse-Imaging-Centre/pyminc/archive/v0.52.tar.gz",
     "minc-stuffs": "https://github.com/Mouse-Imaging-Centre/minc-stuffs/archive/v0.1.24.tar.gz",
     "pyezminc": "https://github.com/BIC-MNI/pyezminc/archive/release-1.2.01.tar.gz",
-    "quarter": "https://github.com/Alexpux/Quarter/archive/master.tar.gz",
+    "quarter": "dff63bdd440c0d0a4cdbe2c9b9ccd0c39c1e94f1",
     "bicinventor": "https://github.com/BIC-MNI/bicInventor/archive/master.tar.gz",
     "brain-view2": "https://github.com/Mouse-Imaging-Centre/brain-view2/archive/master.tar.gz",
     "itksnap-MINC": "https://packages.bic.mni.mcgill.ca/minc-toolkit/third-party/itksnap-3.6.0-minc-20170401-Linux-x86_64-qt4.deb",
