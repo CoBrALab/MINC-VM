@@ -21,7 +21,7 @@ For help with importing VMs see:
 
 <https://docs.oracle.com/cd/E26217_01/E26796/html/qs-import-vm.html>
 
-**This VM is built against Virtualbox 6.0.12, if you have problems with Display/brain-view2, or rstudio,
+**This VM is built against Virtualbox 6.1.4, if you have problems with Display/brain-view2, or rstudio,
 you may need to upgrade your Virtualbox or disable 3D acceleration in your configuration.**
 
 Getting files into and out of the VM is accomplished via the the shared folder
