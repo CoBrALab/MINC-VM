@@ -4,9 +4,7 @@ set -x
 
 #Prerequisites
 apt update
-apt install -y build-essential
-
-apt install -y --install-recommends linux-generic-hwe-18.04 xserver-xorg-hwe-18.04 
+apt install -y build-essential linux-headers-generic --no-install-recommends
 
 #Add user to premission to access virtualbox drive
 addgroup --system vboxsf || true

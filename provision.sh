@@ -33,7 +33,7 @@ apt -y full-upgrade
 apt-get --purge -y autoremove
 
 #Essentials
-apt install -y build-essential
+apt install -y build-essential coreutils --no-install-recommends
 
 #Command line tools
 apt install -y --no-install-recommends htop nano wget imagemagick parallel zram-config debconf
@@ -58,19 +58,20 @@ conda config --append channels conda-forge
 conda config --append channels bioconda
 conda config --append channels simpleitk
 
-conda install --yes numpy scipy python-graphviz scikit-image scikit-learn pip cython setuptools simpleitk nipype
+conda install --yes numpy scipy python-graphviz scikit-image scikit-learn pip cython setuptools simpleitk nipype \
+      nilearn dipy jupyterlab nibabel configargparse pyro4 ordered-set serpent pandas future pytz
 
 #Download external debs
 wget --progress=dot:mega $minc_toolkit_v2
-wget --progress=dot:mega $minc_toolkit_v1
+#wget --progress=dot:mega $minc_toolkit_v1
 wget --progress=dot:mega $bic_mni_models
 
-wget --progress=dot:mega $beast_library
+#wget --progress=dot:mega $beast_library
 
 #Install downloaded debs
 for file in *.deb
 do
-  gdebi --n $file
+  gdebi -n $file
 done
 
 #Cleanup debs
@@ -96,6 +97,7 @@ wget --progress=dot:mega $pydpiper -O pydpiper.tar.gz
 wget --progress=dot:mega $bpipe -O bpipe.tar.gz
 wget https://raw.githubusercontent.com/andrewjanke/volgenmodel/master/volgenmodel -O /usr/local/bin/volgenmodel
 git clone https://github.com/CobraLab/minc-toolkit-extras.git /opt/minc-toolkit-extras
+git clone https://github.com/CoBrALab/iterativeN4_multispectral.git /opt/iterativeN4_multispectral
 
 #Do this so that we don't need to keep track of version numbers for build
 mkdir -p pyminc && tar xzvf pyminc.tar.gz -C pyminc --strip-components 1
@@ -108,10 +110,10 @@ mkdir -p /opt/bpipe && tar xzvf bpipe.tar.gz -C /opt/bpipe --strip-components 1 
 
 #Build and install packages
 ( cd pyezminc && python setup.py install --mincdir /opt/minc/1.9.17 )
-( cd minc2-simple && python python/setup.py install && mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=${MINC_TOOLKIT} .. && make -j4 install )
+( cd minc2-simple && python python/setup.py install && mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=${MINC_TOOLKIT} .. && make -j$(nproc) install )
 ( cd pyminc && python setup.py install )
-( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.17 && make -j4 install && python setup.py install )
-( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc/1.9.17 && make -j4 install)
+( cd minc-stuffs && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.17 && make -j$(nproc) install && python setup.py install )
+( cd generate_deformation_fields && ./autogen.sh && ./configure --with-minc2 --with-build-path=/opt/minc/1.9.17 && make -j$(nproc) install)
 ( cd generate_deformation_fields/scripts && python setup.py build_ext --inplace && python setup.py install)
 ( cd pydpiper && python setup.py install)
 
@@ -129,9 +131,9 @@ mkdir quarter && tar xzvf quarter.tar.gz -C quarter --strip-components 1
 mkdir bicinventor && tar xzvf bicinventor.tar.gz -C bicinventor --strip-components 1
 mkdir brain-view2 && tar xzvf brain-view2.tar.gz -C brain-view2 --strip-components 1
 
-( cd quarter && git checkout ${quarter} && ./configure && make -j4 install )
-( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.17 --prefix=/opt/minc/1.9.17 --with-minc2 && make -j4 install )
-( cd brain-view2 && /usr/bin/qmake-qt4 MINCDIR=/opt/minc/1.9.17 HDF5DIR=/opt/minc/1.9.17 INVENTORDIR=/opt/minc/1.9.17 && make -j4 && cp brain-view2 /opt/minc/1.9.17/bin )
+( cd quarter && git checkout ${quarter} && ./configure && make -j$(nproc) install )
+( cd bicinventor && ./autogen.sh && ./configure --with-build-path=/opt/minc/1.9.17 --prefix=/opt/minc/1.9.17 --with-minc2 && make -j$(nproc) install )
+( cd brain-view2 && /usr/bin/qmake-qt4 MINCDIR=/opt/minc/1.9.17 HDF5DIR=/opt/minc/1.9.17 INVENTORDIR=/opt/minc/1.9.17 && make -j$(nproc) && cp brain-view2 /opt/minc/1.9.17/bin )
 
 rm -rf quarter* bicinventor* brain-view2*
 
@@ -145,12 +147,13 @@ apt install -y --no-install-recommends r-base r-base-dev lsof r-recommended r-cr
   r-cran-gridbase r-cran-gridextra r-cran-r.utils r-cran-rcpp r-cran-doparallel r-cran-rcppparallel r-cran-matrix r-cran-tibble \
   r-cran-yaml r-cran-visnetwork r-cran-rjson r-cran-dt r-cran-rgl r-cran-plotrix r-bioc-biocinstaller r-bioc-qvalue r-cran-testthat \
   r-cran-igraph r-cran-devtools r-cran-diagrammer r-cran-downloader r-cran-influencer r-cran-readr r-cran-hms r-cran-rook r-cran-rook \
-  r-cran-xml r-cran-viridis r-cran-data.tree
+  r-cran-xml r-cran-viridis r-cran-data.tree r-cran-bigstatsr r-cran-lmertest r-cran-bigassertr r-cran-flock r-cran-rhpcblasctl \
+  r-cran-bigparallelr r-cran-cowplot r-cran-rspectra r-cran-rcpparmadillo r-cran-rmio r-cran-numderiv r-cran-usethis r-cran-rmarkdown r-cran-tinytex
 
 
 #Install rstudio
 wget --progress=dot:mega ${rstudio}
-gdebi --n *.deb
+gdebi -n *.deb
 rm -f *.deb
 
 export MINC_PATH=/opt/minc/1.9.17
@@ -181,3 +184,10 @@ apt-get -y purge printer-driver.* xscreensaver.* wpasupplicant wireless-tools .*
 
 apt-get -y clean
 apt-get -y --purge autoremove
+rm -rf /var/lib/apt/lists/*
+cd /
+rm -rf /tmp/provision
+
+dd if=/dev/zero of=/bigemptyfile bs=4096k || true
+
+rm -f /bigemptyfile
